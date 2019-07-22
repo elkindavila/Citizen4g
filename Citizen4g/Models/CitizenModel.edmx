@@ -1,0 +1,1012 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="db_citizen4Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="candidates">
+          <Key>
+            <PropertyRef Name="idCandidates" />
+          </Key>
+          <Property Name="idCandidates" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCard" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Image" Type="mediumblob" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="DescriptionCampaign" Type="varchar" MaxLength="700" />
+          <Property Name="LinkCampaign" Type="varchar" MaxLength="255" />
+          <Property Name="LogoCampaign" Type="mediumblob" />
+          <Property Name="idTown" Type="int" Nullable="false" />
+          <Property Name="idUsers" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="citizen4">
+          <Key>
+            <PropertyRef Name="idCitizen4" />
+          </Key>
+          <Property Name="idCitizen4" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Adress" Type="varchar" MaxLength="45" />
+          <Property Name="Gender" Type="varchar" MaxLength="45" />
+          <Property Name="CellPhone" Type="varchar" MaxLength="10" />
+          <Property Name="Phone" Type="varchar" MaxLength="10" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="EconomicActivity" Type="varchar" MaxLength="45" />
+          <Property Name="EducationLevel" Type="varchar" MaxLength="45" />
+          <Property Name="HeadFamily" Type="tinyint" />
+          <Property Name="EmployeedNow" Type="tinyint" />
+          <Property Name="WageLevel" Type="varchar" MaxLength="45" />
+          <Property Name="Profession" Type="varchar" MaxLength="45" />
+          <Property Name="TypeTransportUse" Type="varchar" MaxLength="45" />
+          <Property Name="WorkEast" Type="tinyint" />
+          <Property Name="idTown" Type="int" Nullable="false" />
+          <Property Name="idUsers" Type="int" Nullable="false" />
+          <Property Name="idCandidates" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="focus">
+          <Key>
+            <PropertyRef Name="idFocus" />
+          </Key>
+          <Property Name="idFocus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionFocus" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="focus_citizen4">
+          <Key>
+            <PropertyRef Name="idFocus_Citizen4col" />
+          </Key>
+          <Property Name="idFocus_Citizen4col" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idFocus" Type="int" Nullable="false" />
+          <Property Name="idCitizen4" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="messagetype">
+          <Key>
+            <PropertyRef Name="id MessageType" />
+          </Key>
+          <Property Name="id MessageType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionType" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="msg_citizen4_candidates">
+          <Key>
+            <PropertyRef Name="idMessageCitizen4" />
+          </Key>
+          <Property Name="idMessageCitizen4" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Link" Type="varchar" MaxLength="300" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Image" Type="mediumblob" />
+          <Property Name="Answer" Type="varchar" MaxLength="45" />
+          <Property Name="idCandidates" Type="int" Nullable="false" />
+          <Property Name="idCitizen4" Type="int" Nullable="false" />
+          <Property Name="idMessageType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="needs">
+          <Key>
+            <PropertyRef Name="idNeeds" />
+          </Key>
+          <Property Name="idNeeds" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionNeed" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="needs_citizen4">
+          <Key>
+            <PropertyRef Name="idNeeds_Citizen4" />
+          </Key>
+          <Property Name="idNeeds_Citizen4" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCitizen4" Type="int" Nullable="false" />
+          <Property Name="idNeeds" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="profiles">
+          <Key>
+            <PropertyRef Name="idProfiles" />
+          </Key>
+          <Property Name="idProfiles" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameProfile" Type="varchar" MaxLength="45" />
+          <Property Name="DescriptionProfile" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="sector">
+          <Key>
+            <PropertyRef Name="idSector" />
+          </Key>
+          <Property Name="idSector" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameSector" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="idTown" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="town">
+          <Key>
+            <PropertyRef Name="idTown" />
+          </Key>
+          <Property Name="idTown" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="idUsers" />
+          </Key>
+          <Property Name="idUsers" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginUsers" Type="varchar" MaxLength="30" />
+          <Property Name="PassUsers" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="users_profiles">
+          <Key>
+            <PropertyRef Name="idUsers_Profiles" />
+          </Key>
+          <Property Name="idUsers_Profiles" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUsers" Type="int" Nullable="false" />
+          <Property Name="idProfiles" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Candidates_Town1">
+          <End Role="town" Type="Self.town" Multiplicity="1" />
+          <End Role="candidates" Type="Self.candidates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="town">
+              <PropertyRef Name="idTown" />
+            </Principal>
+            <Dependent Role="candidates">
+              <PropertyRef Name="idTown" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Candidates_Users1">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="candidates" Type="Self.candidates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="candidates">
+              <PropertyRef Name="idUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Citizen4_Candidates1">
+          <End Role="candidates" Type="Self.candidates" Multiplicity="1" />
+          <End Role="citizen4" Type="Self.citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="candidates">
+              <PropertyRef Name="idCandidates" />
+            </Principal>
+            <Dependent Role="citizen4">
+              <PropertyRef Name="idCandidates" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Citizen4_Town1">
+          <End Role="town" Type="Self.town" Multiplicity="1" />
+          <End Role="citizen4" Type="Self.citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="town">
+              <PropertyRef Name="idTown" />
+            </Principal>
+            <Dependent Role="citizen4">
+              <PropertyRef Name="idTown" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Citizen4_Users1">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="citizen4" Type="Self.citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="citizen4">
+              <PropertyRef Name="idUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Focus_has_Citizen4_Citizen41">
+          <End Role="citizen4" Type="Self.citizen4" Multiplicity="1" />
+          <End Role="focus_citizen4" Type="Self.focus_citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="citizen4">
+              <PropertyRef Name="idCitizen4" />
+            </Principal>
+            <Dependent Role="focus_citizen4">
+              <PropertyRef Name="idCitizen4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Focus_has_Citizen4_Focus1">
+          <End Role="focus" Type="Self.focus" Multiplicity="1" />
+          <End Role="focus_citizen4" Type="Self.focus_citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="focus">
+              <PropertyRef Name="idFocus" />
+            </Principal>
+            <Dependent Role="focus_citizen4">
+              <PropertyRef Name="idFocus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MessageCitizen4_ MessageType1">
+          <End Role="messagetype" Type="Self.messagetype" Multiplicity="1" />
+          <End Role="msg_citizen4_candidates" Type="Self.msg_citizen4_candidates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="messagetype">
+              <PropertyRef Name="id MessageType" />
+            </Principal>
+            <Dependent Role="msg_citizen4_candidates">
+              <PropertyRef Name="idMessageType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MessageCitizen4_Candidates1">
+          <End Role="candidates" Type="Self.candidates" Multiplicity="1" />
+          <End Role="msg_citizen4_candidates" Type="Self.msg_citizen4_candidates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="candidates">
+              <PropertyRef Name="idCandidates" />
+            </Principal>
+            <Dependent Role="msg_citizen4_candidates">
+              <PropertyRef Name="idCandidates" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MessageCitizen4_Citizen41">
+          <End Role="citizen4" Type="Self.citizen4" Multiplicity="1" />
+          <End Role="msg_citizen4_candidates" Type="Self.msg_citizen4_candidates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="citizen4">
+              <PropertyRef Name="idCitizen4" />
+            </Principal>
+            <Dependent Role="msg_citizen4_candidates">
+              <PropertyRef Name="idCitizen4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Needs_Citizen4_Citizen41">
+          <End Role="citizen4" Type="Self.citizen4" Multiplicity="1" />
+          <End Role="needs_citizen4" Type="Self.needs_citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="citizen4">
+              <PropertyRef Name="idCitizen4" />
+            </Principal>
+            <Dependent Role="needs_citizen4">
+              <PropertyRef Name="idCitizen4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Needs_Citizen4_Needs1">
+          <End Role="needs" Type="Self.needs" Multiplicity="1" />
+          <End Role="needs_citizen4" Type="Self.needs_citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="needs">
+              <PropertyRef Name="idNeeds" />
+            </Principal>
+            <Dependent Role="needs_citizen4">
+              <PropertyRef Name="idNeeds" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Sector_Town1">
+          <End Role="town" Type="Self.town" Multiplicity="1" />
+          <End Role="sector" Type="Self.sector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="town">
+              <PropertyRef Name="idTown" />
+            </Principal>
+            <Dependent Role="sector">
+              <PropertyRef Name="idTown" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Users_Profiles_Profiles1">
+          <End Role="profiles" Type="Self.profiles" Multiplicity="1" />
+          <End Role="users_profiles" Type="Self.users_profiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="profiles">
+              <PropertyRef Name="idProfiles" />
+            </Principal>
+            <Dependent Role="users_profiles">
+              <PropertyRef Name="idProfiles" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Users_Profiles_Users1">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="users_profiles" Type="Self.users_profiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="users_profiles">
+              <PropertyRef Name="idUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_citizen4ModelStoreContainer">
+          <EntitySet Name="candidates" EntityType="Self.candidates" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="category" EntityType="Self.category" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="citizen4" EntityType="Self.citizen4" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="focus" EntityType="Self.focus" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="focus_citizen4" EntityType="Self.focus_citizen4" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="messagetype" EntityType="Self.messagetype" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="msg_citizen4_candidates" EntityType="Self.msg_citizen4_candidates" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="needs" EntityType="Self.needs" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="needs_citizen4" EntityType="Self.needs_citizen4" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="profiles" EntityType="Self.profiles" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="sector" EntityType="Self.sector" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="town" EntityType="Self.town" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="users_profiles" EntityType="Self.users_profiles" Schema="db_citizen4" store:Type="Tables" />
+          <AssociationSet Name="fk_Candidates_Town1" Association="Self.fk_Candidates_Town1">
+            <End Role="town" EntitySet="town" />
+            <End Role="candidates" EntitySet="candidates" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Candidates_Users1" Association="Self.fk_Candidates_Users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="candidates" EntitySet="candidates" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Citizen4_Candidates1" Association="Self.fk_Citizen4_Candidates1">
+            <End Role="candidates" EntitySet="candidates" />
+            <End Role="citizen4" EntitySet="citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Citizen4_Town1" Association="Self.fk_Citizen4_Town1">
+            <End Role="town" EntitySet="town" />
+            <End Role="citizen4" EntitySet="citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Citizen4_Users1" Association="Self.fk_Citizen4_Users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="citizen4" EntitySet="citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Focus_has_Citizen4_Citizen41" Association="Self.fk_Focus_has_Citizen4_Citizen41">
+            <End Role="citizen4" EntitySet="citizen4" />
+            <End Role="focus_citizen4" EntitySet="focus_citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Focus_has_Citizen4_Focus1" Association="Self.fk_Focus_has_Citizen4_Focus1">
+            <End Role="focus" EntitySet="focus" />
+            <End Role="focus_citizen4" EntitySet="focus_citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MessageCitizen4_ MessageType1" Association="Self.fk_MessageCitizen4_ MessageType1">
+            <End Role="messagetype" EntitySet="messagetype" />
+            <End Role="msg_citizen4_candidates" EntitySet="msg_citizen4_candidates" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MessageCitizen4_Candidates1" Association="Self.fk_MessageCitizen4_Candidates1">
+            <End Role="candidates" EntitySet="candidates" />
+            <End Role="msg_citizen4_candidates" EntitySet="msg_citizen4_candidates" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MessageCitizen4_Citizen41" Association="Self.fk_MessageCitizen4_Citizen41">
+            <End Role="citizen4" EntitySet="citizen4" />
+            <End Role="msg_citizen4_candidates" EntitySet="msg_citizen4_candidates" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Needs_Citizen4_Citizen41" Association="Self.fk_Needs_Citizen4_Citizen41">
+            <End Role="citizen4" EntitySet="citizen4" />
+            <End Role="needs_citizen4" EntitySet="needs_citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Needs_Citizen4_Needs1" Association="Self.fk_Needs_Citizen4_Needs1">
+            <End Role="needs" EntitySet="needs" />
+            <End Role="needs_citizen4" EntitySet="needs_citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Sector_Town1" Association="Self.fk_Sector_Town1">
+            <End Role="town" EntitySet="town" />
+            <End Role="sector" EntitySet="sector" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Users_Profiles_Profiles1" Association="Self.fk_Users_Profiles_Profiles1">
+            <End Role="profiles" EntitySet="profiles" />
+            <End Role="users_profiles" EntitySet="users_profiles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Users_Profiles_Users1" Association="Self.fk_Users_Profiles_Users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="users_profiles" EntitySet="users_profiles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_citizen4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="candidate">
+          <Key>
+            <PropertyRef Name="idCandidates" />
+          </Key>
+          <Property Name="idCandidates" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCard" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DescriptionCampaign" Type="String" MaxLength="700" FixedLength="false" Unicode="false" />
+          <Property Name="LinkCampaign" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LogoCampaign" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="idTown" Type="Int32" Nullable="false" />
+          <Property Name="idUsers" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="town" Relationship="Self.fk_Candidates_Town1" FromRole="candidates" ToRole="town" />
+          <NavigationProperty Name="user" Relationship="Self.fk_Candidates_Users1" FromRole="candidates" ToRole="users" />
+          <NavigationProperty Name="citizen4" Relationship="Self.fk_Citizen4_Candidates1" FromRole="candidates" ToRole="citizen4" />
+          <NavigationProperty Name="msg_citizen4_candidates" Relationship="Self.fk_MessageCitizen4_Candidates1" FromRole="candidates" ToRole="msg_citizen4_candidates" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="citizen4">
+          <Key>
+            <PropertyRef Name="idCitizen4" />
+          </Key>
+          <Property Name="idCitizen4" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Adress" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CellPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EconomicActivity" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="EducationLevel" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="HeadFamily" Type="SByte" />
+          <Property Name="EmployeedNow" Type="SByte" />
+          <Property Name="WageLevel" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Profession" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="TypeTransportUse" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="WorkEast" Type="SByte" />
+          <Property Name="idTown" Type="Int32" Nullable="false" />
+          <Property Name="idUsers" Type="Int32" Nullable="false" />
+          <Property Name="idCandidates" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="candidate" Relationship="Self.fk_Citizen4_Candidates1" FromRole="citizen4" ToRole="candidates" />
+          <NavigationProperty Name="town" Relationship="Self.fk_Citizen4_Town1" FromRole="citizen4" ToRole="town" />
+          <NavigationProperty Name="user" Relationship="Self.fk_Citizen4_Users1" FromRole="citizen4" ToRole="users" />
+          <NavigationProperty Name="focus_citizen4" Relationship="Self.fk_Focus_has_Citizen4_Citizen41" FromRole="citizen4" ToRole="focus_citizen4" />
+          <NavigationProperty Name="msg_citizen4_candidates" Relationship="Self.fk_MessageCitizen4_Citizen41" FromRole="citizen4" ToRole="msg_citizen4_candidates" />
+          <NavigationProperty Name="needs_citizen4" Relationship="Self.fk_Needs_Citizen4_Citizen41" FromRole="citizen4" ToRole="needs_citizen4" />
+        </EntityType>
+        <EntityType Name="focus">
+          <Key>
+            <PropertyRef Name="idFocus" />
+          </Key>
+          <Property Name="idFocus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionFocus" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="focus_citizen4" Relationship="Self.fk_Focus_has_Citizen4_Focus1" FromRole="focus" ToRole="focus_citizen4" />
+        </EntityType>
+        <EntityType Name="focus_citizen4">
+          <Key>
+            <PropertyRef Name="idFocus_Citizen4col" />
+          </Key>
+          <Property Name="idFocus_Citizen4col" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idFocus" Type="Int32" Nullable="false" />
+          <Property Name="idCitizen4" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="citizen4" Relationship="Self.fk_Focus_has_Citizen4_Citizen41" FromRole="focus_citizen4" ToRole="citizen4" />
+          <NavigationProperty Name="focus" Relationship="Self.fk_Focus_has_Citizen4_Focus1" FromRole="focus_citizen4" ToRole="focus" />
+        </EntityType>
+        <EntityType Name="messagetype">
+          <Key>
+            <PropertyRef Name="id_MessageType" />
+          </Key>
+          <Property Name="id_MessageType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionType" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="msg_citizen4_candidates" Relationship="Self.fk_MessageCitizen4__MessageType1" FromRole="messagetype" ToRole="msg_citizen4_candidates" />
+        </EntityType>
+        <EntityType Name="msg_citizen4_candidates">
+          <Key>
+            <PropertyRef Name="idMessageCitizen4" />
+          </Key>
+          <Property Name="idMessageCitizen4" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Link" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Answer" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="idCandidates" Type="Int32" Nullable="false" />
+          <Property Name="idCitizen4" Type="Int32" Nullable="false" />
+          <Property Name="idMessageType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="candidate" Relationship="Self.fk_MessageCitizen4_Candidates1" FromRole="msg_citizen4_candidates" ToRole="candidates" />
+          <NavigationProperty Name="citizen4" Relationship="Self.fk_MessageCitizen4_Citizen41" FromRole="msg_citizen4_candidates" ToRole="citizen4" />
+          <NavigationProperty Name="messagetype" Relationship="Self.fk_MessageCitizen4__MessageType1" FromRole="msg_citizen4_candidates" ToRole="messagetype" />
+        </EntityType>
+        <EntityType Name="need">
+          <Key>
+            <PropertyRef Name="idNeeds" />
+          </Key>
+          <Property Name="idNeeds" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionNeed" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="needs_citizen4" Relationship="Self.fk_Needs_Citizen4_Needs1" FromRole="needs" ToRole="needs_citizen4" />
+        </EntityType>
+        <EntityType Name="needs_citizen4">
+          <Key>
+            <PropertyRef Name="idNeeds_Citizen4" />
+          </Key>
+          <Property Name="idNeeds_Citizen4" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCitizen4" Type="Int32" Nullable="false" />
+          <Property Name="idNeeds" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="citizen4" Relationship="Self.fk_Needs_Citizen4_Citizen41" FromRole="needs_citizen4" ToRole="citizen4" />
+          <NavigationProperty Name="need" Relationship="Self.fk_Needs_Citizen4_Needs1" FromRole="needs_citizen4" ToRole="needs" />
+        </EntityType>
+        <EntityType Name="profile">
+          <Key>
+            <PropertyRef Name="idProfiles" />
+          </Key>
+          <Property Name="idProfiles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameProfile" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="DescriptionProfile" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="users_profiles" Relationship="Self.fk_Users_Profiles_Profiles1" FromRole="profiles" ToRole="users_profiles" />
+        </EntityType>
+        <EntityType Name="sector">
+          <Key>
+            <PropertyRef Name="idSector" />
+          </Key>
+          <Property Name="idSector" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameSector" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idTown" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="town" Relationship="Self.fk_Sector_Town1" FromRole="sector" ToRole="town" />
+        </EntityType>
+        <EntityType Name="town">
+          <Key>
+            <PropertyRef Name="idTown" />
+          </Key>
+          <Property Name="idTown" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="candidates" Relationship="Self.fk_Candidates_Town1" FromRole="town" ToRole="candidates" />
+          <NavigationProperty Name="citizen4" Relationship="Self.fk_Citizen4_Town1" FromRole="town" ToRole="citizen4" />
+          <NavigationProperty Name="sectors" Relationship="Self.fk_Sector_Town1" FromRole="town" ToRole="sector" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="idUsers" />
+          </Key>
+          <Property Name="idUsers" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginUsers" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PassUsers" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="candidates" Relationship="Self.fk_Candidates_Users1" FromRole="users" ToRole="candidates" />
+          <NavigationProperty Name="citizen4" Relationship="Self.fk_Citizen4_Users1" FromRole="users" ToRole="citizen4" />
+          <NavigationProperty Name="users_profiles" Relationship="Self.fk_Users_Profiles_Users1" FromRole="users" ToRole="users_profiles" />
+        </EntityType>
+        <EntityType Name="users_profiles">
+          <Key>
+            <PropertyRef Name="idUsers_Profiles" />
+          </Key>
+          <Property Name="idUsers_Profiles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsers" Type="Int32" Nullable="false" />
+          <Property Name="idProfiles" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="profile" Relationship="Self.fk_Users_Profiles_Profiles1" FromRole="users_profiles" ToRole="profiles" />
+          <NavigationProperty Name="user" Relationship="Self.fk_Users_Profiles_Users1" FromRole="users_profiles" ToRole="users" />
+        </EntityType>
+        <Association Name="fk_Candidates_Town1">
+          <End Role="town" Type="Self.town" Multiplicity="1" />
+          <End Role="candidates" Type="Self.candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="town">
+              <PropertyRef Name="idTown" />
+            </Principal>
+            <Dependent Role="candidates">
+              <PropertyRef Name="idTown" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Candidates_Users1">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="candidates" Type="Self.candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="candidates">
+              <PropertyRef Name="idUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Citizen4_Candidates1">
+          <End Role="candidates" Type="Self.candidate" Multiplicity="1" />
+          <End Role="citizen4" Type="Self.citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="candidates">
+              <PropertyRef Name="idCandidates" />
+            </Principal>
+            <Dependent Role="citizen4">
+              <PropertyRef Name="idCandidates" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MessageCitizen4_Candidates1">
+          <End Role="candidates" Type="Self.candidate" Multiplicity="1" />
+          <End Role="msg_citizen4_candidates" Type="Self.msg_citizen4_candidates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="candidates">
+              <PropertyRef Name="idCandidates" />
+            </Principal>
+            <Dependent Role="msg_citizen4_candidates">
+              <PropertyRef Name="idCandidates" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Citizen4_Town1">
+          <End Role="town" Type="Self.town" Multiplicity="1" />
+          <End Role="citizen4" Type="Self.citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="town">
+              <PropertyRef Name="idTown" />
+            </Principal>
+            <Dependent Role="citizen4">
+              <PropertyRef Name="idTown" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Citizen4_Users1">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="citizen4" Type="Self.citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="citizen4">
+              <PropertyRef Name="idUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Focus_has_Citizen4_Citizen41">
+          <End Role="citizen4" Type="Self.citizen4" Multiplicity="1" />
+          <End Role="focus_citizen4" Type="Self.focus_citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="citizen4">
+              <PropertyRef Name="idCitizen4" />
+            </Principal>
+            <Dependent Role="focus_citizen4">
+              <PropertyRef Name="idCitizen4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MessageCitizen4_Citizen41">
+          <End Role="citizen4" Type="Self.citizen4" Multiplicity="1" />
+          <End Role="msg_citizen4_candidates" Type="Self.msg_citizen4_candidates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="citizen4">
+              <PropertyRef Name="idCitizen4" />
+            </Principal>
+            <Dependent Role="msg_citizen4_candidates">
+              <PropertyRef Name="idCitizen4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Needs_Citizen4_Citizen41">
+          <End Role="citizen4" Type="Self.citizen4" Multiplicity="1" />
+          <End Role="needs_citizen4" Type="Self.needs_citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="citizen4">
+              <PropertyRef Name="idCitizen4" />
+            </Principal>
+            <Dependent Role="needs_citizen4">
+              <PropertyRef Name="idCitizen4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Focus_has_Citizen4_Focus1">
+          <End Role="focus" Type="Self.focus" Multiplicity="1" />
+          <End Role="focus_citizen4" Type="Self.focus_citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="focus">
+              <PropertyRef Name="idFocus" />
+            </Principal>
+            <Dependent Role="focus_citizen4">
+              <PropertyRef Name="idFocus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MessageCitizen4__MessageType1">
+          <End Role="messagetype" Type="Self.messagetype" Multiplicity="1" />
+          <End Role="msg_citizen4_candidates" Type="Self.msg_citizen4_candidates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="messagetype">
+              <PropertyRef Name="id_MessageType" />
+            </Principal>
+            <Dependent Role="msg_citizen4_candidates">
+              <PropertyRef Name="idMessageType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Needs_Citizen4_Needs1">
+          <End Role="needs" Type="Self.need" Multiplicity="1" />
+          <End Role="needs_citizen4" Type="Self.needs_citizen4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="needs">
+              <PropertyRef Name="idNeeds" />
+            </Principal>
+            <Dependent Role="needs_citizen4">
+              <PropertyRef Name="idNeeds" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Users_Profiles_Profiles1">
+          <End Role="profiles" Type="Self.profile" Multiplicity="1" />
+          <End Role="users_profiles" Type="Self.users_profiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="profiles">
+              <PropertyRef Name="idProfiles" />
+            </Principal>
+            <Dependent Role="users_profiles">
+              <PropertyRef Name="idProfiles" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Sector_Town1">
+          <End Role="town" Type="Self.town" Multiplicity="1" />
+          <End Role="sector" Type="Self.sector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="town">
+              <PropertyRef Name="idTown" />
+            </Principal>
+            <Dependent Role="sector">
+              <PropertyRef Name="idTown" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Users_Profiles_Users1">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="users_profiles" Type="Self.users_profiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="users_profiles">
+              <PropertyRef Name="idUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_citizen4Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="candidates" EntityType="Self.candidate" />
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="citizen4" EntityType="Self.citizen4" />
+          <EntitySet Name="foci" EntityType="Self.focus" />
+          <EntitySet Name="focus_citizen4" EntityType="Self.focus_citizen4" />
+          <EntitySet Name="messagetypes" EntityType="Self.messagetype" />
+          <EntitySet Name="msg_citizen4_candidates" EntityType="Self.msg_citizen4_candidates" />
+          <EntitySet Name="needs" EntityType="Self.need" />
+          <EntitySet Name="needs_citizen4" EntityType="Self.needs_citizen4" />
+          <EntitySet Name="profiles" EntityType="Self.profile" />
+          <EntitySet Name="sectors" EntityType="Self.sector" />
+          <EntitySet Name="towns" EntityType="Self.town" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <EntitySet Name="users_profiles" EntityType="Self.users_profiles" />
+          <AssociationSet Name="fk_Candidates_Town1" Association="Self.fk_Candidates_Town1">
+            <End Role="town" EntitySet="towns" />
+            <End Role="candidates" EntitySet="candidates" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Candidates_Users1" Association="Self.fk_Candidates_Users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="candidates" EntitySet="candidates" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Citizen4_Candidates1" Association="Self.fk_Citizen4_Candidates1">
+            <End Role="candidates" EntitySet="candidates" />
+            <End Role="citizen4" EntitySet="citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MessageCitizen4_Candidates1" Association="Self.fk_MessageCitizen4_Candidates1">
+            <End Role="candidates" EntitySet="candidates" />
+            <End Role="msg_citizen4_candidates" EntitySet="msg_citizen4_candidates" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Citizen4_Town1" Association="Self.fk_Citizen4_Town1">
+            <End Role="town" EntitySet="towns" />
+            <End Role="citizen4" EntitySet="citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Citizen4_Users1" Association="Self.fk_Citizen4_Users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="citizen4" EntitySet="citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Focus_has_Citizen4_Citizen41" Association="Self.fk_Focus_has_Citizen4_Citizen41">
+            <End Role="citizen4" EntitySet="citizen4" />
+            <End Role="focus_citizen4" EntitySet="focus_citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MessageCitizen4_Citizen41" Association="Self.fk_MessageCitizen4_Citizen41">
+            <End Role="citizen4" EntitySet="citizen4" />
+            <End Role="msg_citizen4_candidates" EntitySet="msg_citizen4_candidates" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Needs_Citizen4_Citizen41" Association="Self.fk_Needs_Citizen4_Citizen41">
+            <End Role="citizen4" EntitySet="citizen4" />
+            <End Role="needs_citizen4" EntitySet="needs_citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Focus_has_Citizen4_Focus1" Association="Self.fk_Focus_has_Citizen4_Focus1">
+            <End Role="focus" EntitySet="foci" />
+            <End Role="focus_citizen4" EntitySet="focus_citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MessageCitizen4__MessageType1" Association="Self.fk_MessageCitizen4__MessageType1">
+            <End Role="messagetype" EntitySet="messagetypes" />
+            <End Role="msg_citizen4_candidates" EntitySet="msg_citizen4_candidates" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Needs_Citizen4_Needs1" Association="Self.fk_Needs_Citizen4_Needs1">
+            <End Role="needs" EntitySet="needs" />
+            <End Role="needs_citizen4" EntitySet="needs_citizen4" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Users_Profiles_Profiles1" Association="Self.fk_Users_Profiles_Profiles1">
+            <End Role="profiles" EntitySet="profiles" />
+            <End Role="users_profiles" EntitySet="users_profiles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Sector_Town1" Association="Self.fk_Sector_Town1">
+            <End Role="town" EntitySet="towns" />
+            <End Role="sector" EntitySet="sectors" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Users_Profiles_Users1" Association="Self.fk_Users_Profiles_Users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="users_profiles" EntitySet="users_profiles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_citizen4ModelStoreContainer" CdmEntityContainer="db_citizen4Entities1">
+          <EntitySetMapping Name="candidates">
+            <EntityTypeMapping TypeName="db_citizen4Model.candidate">
+              <MappingFragment StoreEntitySet="candidates">
+                <ScalarProperty Name="idCandidates" ColumnName="idCandidates" />
+                <ScalarProperty Name="idCard" ColumnName="idCard" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DescriptionCampaign" ColumnName="DescriptionCampaign" />
+                <ScalarProperty Name="LinkCampaign" ColumnName="LinkCampaign" />
+                <ScalarProperty Name="LogoCampaign" ColumnName="LogoCampaign" />
+                <ScalarProperty Name="idTown" ColumnName="idTown" />
+                <ScalarProperty Name="idUsers" ColumnName="idUsers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="db_citizen4Model.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="citizen4">
+            <EntityTypeMapping TypeName="db_citizen4Model.citizen4">
+              <MappingFragment StoreEntitySet="citizen4">
+                <ScalarProperty Name="idCitizen4" ColumnName="idCitizen4" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EconomicActivity" ColumnName="EconomicActivity" />
+                <ScalarProperty Name="EducationLevel" ColumnName="EducationLevel" />
+                <ScalarProperty Name="HeadFamily" ColumnName="HeadFamily" />
+                <ScalarProperty Name="EmployeedNow" ColumnName="EmployeedNow" />
+                <ScalarProperty Name="WageLevel" ColumnName="WageLevel" />
+                <ScalarProperty Name="Profession" ColumnName="Profession" />
+                <ScalarProperty Name="TypeTransportUse" ColumnName="TypeTransportUse" />
+                <ScalarProperty Name="WorkEast" ColumnName="WorkEast" />
+                <ScalarProperty Name="idTown" ColumnName="idTown" />
+                <ScalarProperty Name="idUsers" ColumnName="idUsers" />
+                <ScalarProperty Name="idCandidates" ColumnName="idCandidates" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="foci">
+            <EntityTypeMapping TypeName="db_citizen4Model.focus">
+              <MappingFragment StoreEntitySet="focus">
+                <ScalarProperty Name="idFocus" ColumnName="idFocus" />
+                <ScalarProperty Name="DescriptionFocus" ColumnName="DescriptionFocus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="focus_citizen4">
+            <EntityTypeMapping TypeName="db_citizen4Model.focus_citizen4">
+              <MappingFragment StoreEntitySet="focus_citizen4">
+                <ScalarProperty Name="idFocus_Citizen4col" ColumnName="idFocus_Citizen4col" />
+                <ScalarProperty Name="idFocus" ColumnName="idFocus" />
+                <ScalarProperty Name="idCitizen4" ColumnName="idCitizen4" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="messagetypes">
+            <EntityTypeMapping TypeName="db_citizen4Model.messagetype">
+              <MappingFragment StoreEntitySet="messagetype">
+                <ScalarProperty Name="id_MessageType" ColumnName="id MessageType" />
+                <ScalarProperty Name="DescriptionType" ColumnName="DescriptionType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="msg_citizen4_candidates">
+            <EntityTypeMapping TypeName="db_citizen4Model.msg_citizen4_candidates">
+              <MappingFragment StoreEntitySet="msg_citizen4_candidates">
+                <ScalarProperty Name="idMessageCitizen4" ColumnName="idMessageCitizen4" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="idCandidates" ColumnName="idCandidates" />
+                <ScalarProperty Name="idCitizen4" ColumnName="idCitizen4" />
+                <ScalarProperty Name="idMessageType" ColumnName="idMessageType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="needs">
+            <EntityTypeMapping TypeName="db_citizen4Model.need">
+              <MappingFragment StoreEntitySet="needs">
+                <ScalarProperty Name="idNeeds" ColumnName="idNeeds" />
+                <ScalarProperty Name="DescriptionNeed" ColumnName="DescriptionNeed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="needs_citizen4">
+            <EntityTypeMapping TypeName="db_citizen4Model.needs_citizen4">
+              <MappingFragment StoreEntitySet="needs_citizen4">
+                <ScalarProperty Name="idNeeds_Citizen4" ColumnName="idNeeds_Citizen4" />
+                <ScalarProperty Name="idCitizen4" ColumnName="idCitizen4" />
+                <ScalarProperty Name="idNeeds" ColumnName="idNeeds" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="profiles">
+            <EntityTypeMapping TypeName="db_citizen4Model.profile">
+              <MappingFragment StoreEntitySet="profiles">
+                <ScalarProperty Name="idProfiles" ColumnName="idProfiles" />
+                <ScalarProperty Name="NameProfile" ColumnName="NameProfile" />
+                <ScalarProperty Name="DescriptionProfile" ColumnName="DescriptionProfile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sectors">
+            <EntityTypeMapping TypeName="db_citizen4Model.sector">
+              <MappingFragment StoreEntitySet="sector">
+                <ScalarProperty Name="idSector" ColumnName="idSector" />
+                <ScalarProperty Name="NameSector" ColumnName="NameSector" />
+                <ScalarProperty Name="idTown" ColumnName="idTown" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="towns">
+            <EntityTypeMapping TypeName="db_citizen4Model.town">
+              <MappingFragment StoreEntitySet="town">
+                <ScalarProperty Name="idTown" ColumnName="idTown" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="db_citizen4Model.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="idUsers" ColumnName="idUsers" />
+                <ScalarProperty Name="LoginUsers" ColumnName="LoginUsers" />
+                <ScalarProperty Name="PassUsers" ColumnName="PassUsers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users_profiles">
+            <EntityTypeMapping TypeName="db_citizen4Model.users_profiles">
+              <MappingFragment StoreEntitySet="users_profiles">
+                <ScalarProperty Name="idUsers_Profiles" ColumnName="idUsers_Profiles" />
+                <ScalarProperty Name="idUsers" ColumnName="idUsers" />
+                <ScalarProperty Name="idProfiles" ColumnName="idProfiles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="41ecbd20686d454fae24b41ae4a93821" Name="Diagram1">
+        <EntityTypeShape EntityType="db_citizen4Model.candidate" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.category" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.citizen4" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.focus" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.focus_citizen4" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.messagetype" Width="1.5" PointX="8.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.msg_citizen4_candidates" Width="1.5" PointX="10.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.need" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.needs_citizen4" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.profile" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.sector" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.town" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.user" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.users_profiles" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="db_citizen4Model.fk_Candidates_Town1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_Candidates_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_Citizen4_Candidates1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_MessageCitizen4_Candidates1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_Citizen4_Town1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_Citizen4_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_Focus_has_Citizen4_Citizen41" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_MessageCitizen4_Citizen41" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_Needs_Citizen4_Citizen41" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_Focus_has_Citizen4_Focus1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_MessageCitizen4__MessageType1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_Needs_Citizen4_Needs1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_Users_Profiles_Profiles1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_Sector_Town1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_citizen4Model.fk_Users_Profiles_Users1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
