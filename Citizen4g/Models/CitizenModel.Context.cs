@@ -12,7 +12,8 @@ namespace Citizen4g.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public partial class db_citizen4Entities1 : DbContext
     {
         public db_citizen4Entities1()
