@@ -6,9 +6,11 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Citizen4g.Models;
+using Newtonsoft.Json;
 
 namespace Citizen4g.Controllers
 {
@@ -40,6 +42,24 @@ namespace Citizen4g.Controllers
             return Ok(user);
         }
 
+        [HttpGet]
+        [Route("validate/{login}")]
+        public HttpResponseMessage findByName(string login)
+        {
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new StringContent(JsonConvert.SerializeObject
+                    (db.users.Single(t => t.LoginUsers == login)));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                return result;
+            }
+            catch
+            {
+
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+        }
 
         //PUT
 

@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using Citizen4g.Models;
 using System.Net.Http.Handlers;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace Citizen4g.Controllers
 {
@@ -45,9 +46,28 @@ namespace Citizen4g.Controllers
             return Ok(town);
         }
 
+        [HttpGet]
+        [Route("validate/{name}")]
+        public HttpResponseMessage findByName(string name)
+        {
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new StringContent(JsonConvert.SerializeObject
+                    (db.towns.Single(t => t.Name == name)));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                return result;
+            }
+            catch
+            {
+
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+        }
+
 
         //FUNCIONA
-        // LA BUSQUEDA DE REGISTRO TAMBIEN SE PUEDE REALIZAR POR OTRO CAMPO, ejemplo, por Nombre
+        // BUSQUEDA DE REGISTRO POR NOMBRE
 
 
         //[ResponseType(typeof(town))]
