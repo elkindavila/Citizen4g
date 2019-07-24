@@ -46,17 +46,17 @@ namespace Citizen4g.Controllers
             return Ok(town);
         }
 
+
+
         [HttpGet]
-        [Route("validate/{name}")]
-        public HttpResponseMessage findByName(string name)
+        [Route("validate/{town}")]
+        public HttpResponseMessage findByName(string town)
         {
             try
             {
-                var result = new HttpResponseMessage(HttpStatusCode.OK);
-                result.Content = new StringContent(JsonConvert.SerializeObject
-                    (db.towns.Single(t => t.Name == name)));
-                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                return result;
+                db.towns.Single(t => t.Name == town);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+
             }
             catch
             {
@@ -66,8 +66,30 @@ namespace Citizen4g.Controllers
         }
 
 
-        //FUNCIONA
-        // BUSQUEDA DE REGISTRO POR NOMBRE
+
+        // BUSQUEDA-1 DE REGISTRO POR NOMBRE
+
+        //[HttpGet]
+        //[Route("validate/{name}")]
+        //public HttpResponseMessage findByName(string name)
+        //{
+        //    try
+        //    {
+        //        var result = new HttpResponseMessage(HttpStatusCode.OK);
+        //        result.Content = new StringContent(JsonConvert.SerializeObject
+        //            (db.towns.Single(t => t.Name == name)));
+        //        result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+        //        return result;
+        //    }
+        //    catch
+        //    {
+
+        //        return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        //    }
+        //}
+
+
+        // BUSQUEDA-2 DE REGISTRO POR NOMBRE
 
 
         //[ResponseType(typeof(town))]
@@ -85,7 +107,7 @@ namespace Citizen4g.Controllers
 
         //**********************************
 
-        //EL METODO PUT SE REEMPLAZA TODO y se cambian los nombres de las instancias.
+        //PUT 
 
         [HttpPut]
         [Route("update")]
@@ -129,7 +151,7 @@ namespace Citizen4g.Controllers
             }
         }
 
-        //ESTE CODIGO PARA CREAR TAMBIEN FUNCIONA
+        //CREATE
 
         //[ResponseType(typeof(town))]
         //[HttpPost]
@@ -171,7 +193,7 @@ namespace Citizen4g.Controllers
             return Ok(town);
         }
 
-        //ESTE CODIGO PARA ELIMINAR TAMBIEN FUNCIONA   
+        //ELIMINA   
         //NOTA:  No elimina registros cuya PK este siendo utilizada como FK en otras tablas
 
         //[HttpDelete]

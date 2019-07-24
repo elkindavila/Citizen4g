@@ -6,52 +6,47 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Citizen4g.Models;
-using Newtonsoft.Json;
 
 namespace Citizen4g.Controllers
 {
-    [RoutePrefix("api/users")]
-    public class usersController : ApiController
+    [RoutePrefix("api/sectors")]
+    public class sectorsController : ApiController
     {
-
         private db_citizen4Entities1 db = new db_citizen4Entities1();
 
-        // GET: api/users
+        // GET: api/sectors
         [Route("")]
-        public IEnumerable<user> Getusers()
+        public IEnumerable<sector> Getsectors()
         {
-
-            return db.users.ToList();
+            return db.sectors.ToList();
         }
 
-        // GET: api/users/5
-        [ResponseType(typeof(user))]
+        // GET: api/sectors/5
         [Route("{id:int}")]
-        public IHttpActionResult Getuser(int id)
+        [ResponseType(typeof(sector))]
+        public IHttpActionResult Getsector(int id)
         {
-            user user = db.users.Find(id);
-            if (user == null)
+            sector sector = db.sectors.Find(id);
+            if (sector == null)
             {
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(sector);
         }
-
 
         [HttpGet]
-        [Route("validate/{login}")]
-        public HttpResponseMessage findByName(string login)
+        [Route("validate/{name}")]
+        public HttpResponseMessage findByName(string name)
         {
             try
             {
-                db.users.Single(t => t.LoginUsers == login);
+                db.sectors.Single(t => t.NameSector == name);
                 return new HttpResponseMessage(HttpStatusCode.OK);
-               
+
             }
             catch
             {
@@ -60,19 +55,18 @@ namespace Citizen4g.Controllers
             }
         }
 
-        //PUT
-
+        // PUT: api/sectors/5
         [HttpPut]
         [Route("update")]
-        public HttpResponseMessage Update([FromBody]user user)
+        public HttpResponseMessage Update([FromBody]sector sector)
         {
             try
             {
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
-                var newUser = db.users.Single(t => t.idUsers == user.idUsers);
+                var newUser = db.sectors.Single(t => t.idSector == sector.idSector);
 
-                newUser.LoginUsers = user.LoginUsers;
-                newUser.PassUsers = user.PassUsers;
+                newUser.NameSector = sector.NameSector;
+                newUser.idTown = sector.idTown;
                 db.SaveChanges();
                 return result;
             }
@@ -83,17 +77,15 @@ namespace Citizen4g.Controllers
             }
         }
 
-        // POST: api/users
-
-
+        // POST: api/sectors
         [HttpPost]
         [Route("create")]
-        public HttpResponseMessage Create([FromBody]user user)
+        public HttpResponseMessage Create([FromBody]sector sector)
         {
             try
             {
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
-                db.users.Add(user);
+                db.sectors.Add(sector);
                 db.SaveChanges();
                 return result;
             }
@@ -104,23 +96,22 @@ namespace Citizen4g.Controllers
             }
         }
 
-
-        // DELETE: api/users/5
-        [ResponseType(typeof(user))]
+        // DELETE: api/sectors/5
+        [ResponseType(typeof(sector))]
         [HttpDelete]
         [Route("delete/{id}")]
-        public IHttpActionResult Deleteuser(int id)
+        public IHttpActionResult Deletesector(int id)
         {
-            user user = db.users.Find(id);
-            if (user == null)
+            sector sector = db.sectors.Find(id);
+            if (sector == null)
             {
                 return NotFound();
             }
 
-            db.users.Remove(user);
+            db.sectors.Remove(sector);
             db.SaveChanges();
 
-            return Ok(user);
+            return Ok(sector);
         }
 
         protected override void Dispose(bool disposing)
@@ -132,9 +123,9 @@ namespace Citizen4g.Controllers
             base.Dispose(disposing);
         }
 
-        private bool userExists(int id)
+        private bool sectorExists(int id)
         {
-            return db.users.Count(e => e.idUsers == id) > 0;
+            return db.sectors.Count(e => e.idSector == id) > 0;
         }
     }
 }

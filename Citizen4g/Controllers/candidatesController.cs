@@ -38,6 +38,24 @@ namespace Citizen4g.Controllers
             return Ok(candidate);
         }
 
+        [HttpGet]
+        [Route("validate/{idcard}")]
+        public HttpResponseMessage findByName(int idcard)
+        {
+            try
+            {
+                db.candidates.Single(t => t.idCard == idcard);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+
+            }
+            catch
+            {
+
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+        }
+
+
         // PUT: api/candidates/5
         [HttpPut]
         [Route("update")]
