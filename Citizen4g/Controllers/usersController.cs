@@ -22,6 +22,7 @@ namespace Citizen4g.Controllers
 
         // GET: api/users
         [Route("")]
+        /// Lista all users
         public IEnumerable<user> Getusers()
         {
 
@@ -31,6 +32,7 @@ namespace Citizen4g.Controllers
         // GET: api/users/5
         [ResponseType(typeof(user))]
         [Route("{id:int}")]
+        /// Lista users por "int id" 
         public IHttpActionResult Getuser(int id)
         {
             user user = db.users.Find(id);
@@ -64,6 +66,7 @@ namespace Citizen4g.Controllers
 
         [HttpPut]
         [Route("update")]
+        /// Recibe como argumento el Models user y compara el idUsers proporcionado para realizar el update
         public HttpResponseMessage Update([FromBody]user user)
         {
             try
@@ -109,6 +112,8 @@ namespace Citizen4g.Controllers
         [ResponseType(typeof(user))]
         [HttpDelete]
         [Route("delete/{id}")]
+
+        /// Recibe argumento "int id" for Delete
         public IHttpActionResult Deleteuser(int id)
         {
             user user = db.users.Find(id);
