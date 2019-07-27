@@ -132,6 +132,7 @@
     <Compile Include="Controllers\candidatesController.cs" />
     <Compile Include="Controllers\citizen4Controller.cs" />
     <Compile Include="Controllers\messageController.cs" />
+    <Compile Include="Controllers\messagetypesController.cs" />
     <Compile Include="Controllers\sectorsController.cs" />
     <Compile Include="Controllers\townsController.cs" />
     <Compile Include="Controllers\usersController.cs" />

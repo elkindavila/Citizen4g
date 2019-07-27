@@ -62,6 +62,41 @@ namespace Citizen4g.Controllers
             }
         }
 
+        //// GET: api/users/5
+        //[ResponseType(typeof(user))]
+        //[Route("{id:int}")]
+        ///// Lista users por "int id" 
+        //public IHttpActionResult Getuserpass(int id)
+        //{
+        //    user user = db.users.Find(id);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(user);
+        //}
+
+
+        [HttpGet]
+        [Route("validateup/{login},{pass}")]
+        public HttpResponseMessage findup(string login, string pass)
+        {
+            try
+            {
+                var us= db.users.Single(t => t.LoginUsers == login);
+                var ps = db.users.Single(p => p.PassUsers == pass);
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
+
+            }
+            catch
+            {
+
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+        }
+
         //PUT
 
         [HttpPut]
