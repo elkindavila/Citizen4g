@@ -48,10 +48,11 @@ namespace Citizen4g.Controllers
         // GET: api/users/5
 
         [HttpGet]
+        [ResponseType(typeof(user))]
         [Route("profile/{loguin}")]
         public IHttpActionResult Getperfil(string loguin)
         {
-
+            IEnumerable<users_profiles> c = new List<users_profiles>();
             using (var context = new db_citizen4Entities1())
 
             {
@@ -63,13 +64,17 @@ namespace Citizen4g.Controllers
                 //var msgCanCit = new msg_citizen4_candidates();
 
                 var result = User.FirstOrDefault();
-                var c = result.users_profiles.Where(x => x.idProfiles == 2);
+                c = result.users_profiles.Where(x => x.idProfiles == 2);
 
-                
-
-                    return null;
-                }
-
+              
+            }
+            //user user = db.users.Find(c.FirstOrDefault().idUsers);
+            //if (user == null)
+            //{
+            //    return NotFound();
+            //}
+            //return Ok(user);
+            return Content(HttpStatusCode.OK, c.FirstOrDefault().user);
 
         }
 
