@@ -52,60 +52,45 @@ namespace Citizen4g.Controllers
         [Route("profile/{loguin}")]
         public IHttpActionResult Getperfil(string loguin)
         {
-            IEnumerable<users_profiles> c = new List<users_profiles>();
-            using (var context = new db_citizen4Entities1())
-
-            {
-
-
-                var User = context.users.Include(x => x.users_profiles).Where(y => y.LoginUsers == loguin).ToList();
-                //var perfil = context.users_profiles.Include(x => x.users).Where(z=> z.idProfiles==User).ToList();
-
-                //var msgCanCit = new msg_citizen4_candidates();
-
-                var result = User.FirstOrDefault();
-                c = result.users_profiles.Where(x => x.idProfiles == 2);
-
-              
+            //candidato
+            user user = db.users.Where(x => x.LoginUsers == loguin && x.users_profiles.FirstOrDefault().idProfiles == 4).FirstOrDefault();
+            if (user == null)
+            { 
+                //citizen
+                 user = db.users.Where(x => x.LoginUsers == loguin && x.users_profiles.FirstOrDefault().idProfiles == 2).FirstOrDefault();
             }
-            //user user = db.users.Find(c.FirstOrDefault().idUsers);
-            //if (user == null)
-            //{
-            //    return NotFound();
-            //}
-            //return Ok(user);
-            return Content(HttpStatusCode.OK, c.FirstOrDefault().user);
+            return Ok(user);
 
         }
 
 
-            
-
-            //citizen4 citizen = new citizen4();
-            //using (var contex = new db_citizen4Entities1())
-            //{
-            //    var users = contex.users.FirstOrDefault(c => c.LoginUsers == loguin);
-            //    var perfil = users.users_profiles;
-
-            //   var datosperfilc = new profile();
-            //    var datosperfilcan = new candidate();
 
 
-            //        if (datosperfilc.idProfiles== 2)
-            //        {
-            //            citizen = contex.citizen4.Where(x => x.idUsers == datosperfilcan.idUsers).FirstOrDefault();
-            //            return citizen;
+        //citizen4 citizen = new citizen4();
+        //using (var contex = new db_citizen4Entities1())
+        //{
+        //    var users = contex.users.FirstOrDefault(c => c.LoginUsers == loguin);
+        //    var perfil = users.users_profiles;
+
+        //   var datosperfilc = new profile();
+        //    var datosperfilcan = new candidate();
 
 
-            //        }
-            //        else
-            //        {
-            //            return null;
-            //        }
+        //        if (datosperfilc.idProfiles== 2)
+        //        {
+        //            citizen = contex.citizen4.Where(x => x.idUsers == datosperfilcan.idUsers).FirstOrDefault();
+        //            return citizen;
 
 
-            //    }
-        
+        //        }
+        //        else
+        //        {
+        //            return null;
+        //        }
+
+
+        //    }
+
 
         [HttpGet]
         [Route("validate/{login}")]
@@ -115,7 +100,7 @@ namespace Citizen4g.Controllers
             {
                 db.users.Single(t => t.LoginUsers == login);
                 return new HttpResponseMessage(HttpStatusCode.OK);
-               
+
             }
             catch
             {
@@ -131,7 +116,7 @@ namespace Citizen4g.Controllers
         {
             try
             {
-                var us= db.users.Single(t => t.LoginUsers == login);
+                var us = db.users.Single(t => t.LoginUsers == login);
                 var ps = db.users.Single(p => p.PassUsers == pass);
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
