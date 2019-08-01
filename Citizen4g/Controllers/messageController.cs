@@ -70,6 +70,7 @@ namespace Citizen4g.Controllers
 
         // POST: api/message
 
+
         [HttpPost]
         [Route("create")]
         public HttpResponseMessage Create([FromBody]msg_citizen4_candidates message)

@@ -45,6 +45,63 @@ namespace Citizen4g.Controllers
         }
 
 
+        // GET: api/users/5
+
+        [HttpGet]
+        [Route("profile/{loguin}")]
+        public IHttpActionResult Getperfil(string loguin)
+        {
+
+            using (var context = new db_citizen4Entities1())
+
+            {
+
+
+                var User = context.users.Include(x => x.users_profiles).Where(y => y.LoginUsers == loguin).ToList();
+                //var perfil = context.users_profiles.Include(x => x.users).Where(z=> z.idProfiles==User).ToList();
+
+                //var msgCanCit = new msg_citizen4_candidates();
+
+                var result = User.FirstOrDefault();
+                var c = result.users_profiles.Where(x => x.idProfiles == 2);
+
+                
+
+                    return null;
+                }
+
+
+        }
+
+
+            
+
+            //citizen4 citizen = new citizen4();
+            //using (var contex = new db_citizen4Entities1())
+            //{
+            //    var users = contex.users.FirstOrDefault(c => c.LoginUsers == loguin);
+            //    var perfil = users.users_profiles;
+
+            //   var datosperfilc = new profile();
+            //    var datosperfilcan = new candidate();
+
+
+            //        if (datosperfilc.idProfiles== 2)
+            //        {
+            //            citizen = contex.citizen4.Where(x => x.idUsers == datosperfilcan.idUsers).FirstOrDefault();
+            //            return citizen;
+
+
+            //        }
+            //        else
+            //        {
+            //            return null;
+            //        }
+
+
+            //    }
+        
+
         [HttpGet]
         [Route("validate/{login}")]
         public HttpResponseMessage findByName(string login)
@@ -61,21 +118,6 @@ namespace Citizen4g.Controllers
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
-
-        //// GET: api/users/5
-        //[ResponseType(typeof(user))]
-        //[Route("{id:int}")]
-        ///// Lista users por "int id" 
-        //public IHttpActionResult Getuserpass(int id)
-        //{
-        //    user user = db.users.Find(id);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(user);
-        //}
 
 
         [HttpGet]

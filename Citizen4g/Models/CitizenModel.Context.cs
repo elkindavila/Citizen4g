@@ -20,16 +20,23 @@ namespace Citizen4g.Models
             : base("name=db_citizen4Entities1")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<citizen4>().HasRequired(x => x.candidate);
+            modelBuilder.Entity<msg_citizen4_candidates>().HasRequired(x => x.candidate);
+            modelBuilder.Entity<msg_citizen4_candidates>().HasRequired(x => x.citizen4);
+
+          
+            base.OnModelCreating(modelBuilder);
+
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<candidate> candidates { get; set; }
         public virtual DbSet<category> categories { get; set; }
         public virtual DbSet<citizen4> citizen4 { get; set; }
-        public virtual DbSet<focus> foci { get; set; }
+        public virtual DbSet<focus> focus { get; set; }
         public virtual DbSet<focus_citizen4> focus_citizen4 { get; set; }
         public virtual DbSet<messagetype> messagetypes { get; set; }
         public virtual DbSet<msg_citizen4_candidates> msg_citizen4_candidates { get; set; }
@@ -40,5 +47,8 @@ namespace Citizen4g.Models
         public virtual DbSet<town> towns { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<users_profiles> users_profiles { get; set; }
+
+        
+
     }
 }
