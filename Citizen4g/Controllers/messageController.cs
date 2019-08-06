@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -38,8 +39,45 @@ namespace Citizen4g.Controllers
             return Ok(msg_citizen4_candidates);
         }
 
+        [HttpGet]
+        [Route("type/{type}")]
+        [ResponseType(typeof(msg_citizen4_candidates))]
+        public IHttpActionResult messagesxtype(int type)
+        {
+
+
+            msg_citizen4_candidates msgtype = db.msg_citizen4_candidates.Where(x=> x.idMessageType == type).FirstOrDefault();
+            if (msgtype == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(msgtype);
+
+
+            //var mtype = db.msg_citizen4_candidates.Where(x => x.idMessageType == type).ToList();
+
+            //if (mtype != null)
+            //{
+            //    return Ok(mtype);
+
+            //}
+
+            //return NotFound();
+
+
+            //var msgType = db.Database.SqlQuery<msg_citizen4_candidates>(
+            //    @"SELECT *
+            //      FROM msg_citizen4_candidates
+            //      WHERE idMessageType = @type", new SqlParameter("@type", type));
+            //return Ok(msgType);
+
+        }
+
+
+
         // PUT: api/message/5
-    
+
         [HttpPut]
         [Route("update")]
         public HttpResponseMessage Update([FromBody]msg_citizen4_candidates message)
@@ -72,15 +110,41 @@ namespace Citizen4g.Controllers
 
 
         [HttpPost]
-        [Route("create")]
-        public HttpResponseMessage Create([FromBody]msg_citizen4_candidates message)
+        [Route("enviarMsgCitizens")]
+        public HttpResponseMessage EnviarMsg([FromBody] msg_citizen4_candidates msg)
         {
             try
             {
+
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
-                db.msg_citizen4_candidates.Add(message);
-                db.SaveChanges();
+                var candidate = db.candidates.FirstOrDefault(c => c.idCandidates == msg.idCandidates);
+                var citizen = candidate.citizen4;
+
+                using (var contex = new db_citizen4Entities1())
+                {
+                    var msgCanCit = new msg_citizen4_candidates();
+
+
+                    foreach (var dato in citizen)
+                    {
+                        msgCanCit.idCitizen4 = dato.idCitizen4;
+                        msgCanCit.Title = msg.Title;
+                        msgCanCit.Description = msg.Description;
+                        msgCanCit.Link = msg.Link;
+                        msgCanCit.Date = Convert.ToDateTime(msg.Date);
+                        msgCanCit.Image = msg.Image;
+                        msgCanCit.Answer = msg.Answer;
+                        msgCanCit.idCandidates = msg.idCandidates;
+                        msgCanCit.idMessageType = msg.idMessageType;
+
+                        contex.msg_citizen4_candidates.Add(msgCanCit);
+                        contex.SaveChanges();
+                    }
+
+                }
+
                 return result;
+
             }
             catch
             {
@@ -88,6 +152,7 @@ namespace Citizen4g.Controllers
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
+
 
         // DELETE: api/message/5
         [ResponseType(typeof(msg_citizen4_candidates))]

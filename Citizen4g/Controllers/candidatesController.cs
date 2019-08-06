@@ -55,50 +55,7 @@ namespace Citizen4g.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("enviarMsgCitizens")]
-        public HttpResponseMessage EnviarMsg([FromBody] msg_citizen4_candidates msg)
-        {
-            try
-            {
-
-                var result = new HttpResponseMessage(HttpStatusCode.OK);
-                var candidate = db.candidates.FirstOrDefault(c => c.idCandidates == msg.idCandidates);
-                var citizen = candidate.citizen4;
-               
-                    using (var contex = new db_citizen4Entities1())
-                    {
-                        var msgCanCit = new msg_citizen4_candidates();
-                        
-
-                        foreach (var dato in citizen)
-                        {
-                            msgCanCit.idCitizen4 = dato.idCitizen4;
-                            msgCanCit.Title = msg.Title;
-                            msgCanCit.Description = msg.Description;
-                            msgCanCit.Link = msg.Link;
-                            msgCanCit.Date = Convert.ToDateTime(msg.Date);
-                            msgCanCit.Image = msg.Image;
-                            msgCanCit.Answer = msg.Answer;
-                            msgCanCit.idCandidates = msg.idCandidates;
-                            msgCanCit.idMessageType = msg.idMessageType;
-
-                            contex.msg_citizen4_candidates.Add(msgCanCit);
-                            contex.SaveChanges();
-                        }      
-
-                    }
-                
-                return result;
-
-            }
-            catch
-            {
-
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            }
-        }
-
+       
 
         // PUT: api/candidates/5
         [HttpPut]

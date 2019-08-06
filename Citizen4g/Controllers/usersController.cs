@@ -63,53 +63,6 @@ namespace Citizen4g.Controllers
 
         }
 
-
-
-
-        //citizen4 citizen = new citizen4();
-        //using (var contex = new db_citizen4Entities1())
-        //{
-        //    var users = contex.users.FirstOrDefault(c => c.LoginUsers == loguin);
-        //    var perfil = users.users_profiles;
-
-        //   var datosperfilc = new profile();
-        //    var datosperfilcan = new candidate();
-
-
-        //        if (datosperfilc.idProfiles== 2)
-        //        {
-        //            citizen = contex.citizen4.Where(x => x.idUsers == datosperfilcan.idUsers).FirstOrDefault();
-        //            return citizen;
-
-
-        //        }
-        //        else
-        //        {
-        //            return null;
-        //        }
-
-
-        //    }
-
-
-        [HttpGet]
-        [Route("validate/{login}")]
-        public HttpResponseMessage findByName(string login)
-        {
-            try
-            {
-                db.users.Single(t => t.LoginUsers == login);
-                return new HttpResponseMessage(HttpStatusCode.OK);
-
-            }
-            catch
-            {
-
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            }
-        }
-
-
         [HttpGet]
         [Route("validateup/{login},{pass}")]
         public HttpResponseMessage findup(string login, string pass)
@@ -160,19 +113,20 @@ namespace Citizen4g.Controllers
         [Route("create")]
         public HttpResponseMessage Create([FromBody]user user)
         {
-            try
-            {
-                var result = new HttpResponseMessage(HttpStatusCode.OK);
-                db.users.Add(user);
-                db.SaveChanges();
-                return result;
-            }
-            catch
-            {
+            
+           user exuser = db.users.Where(x=> x.LoginUsers == user.LoginUsers).FirstOrDefault();
+
+                if (exuser != null) {
 
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
+               
+                
+                }
+            db.users.Add(user);
+            db.SaveChanges();
+            return new HttpResponseMessage(HttpStatusCode.OK);
             }
-        }
+           
 
 
         // DELETE: api/users/5
