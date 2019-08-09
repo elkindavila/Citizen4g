@@ -55,7 +55,28 @@ namespace Citizen4g.Controllers
             }
         }
 
-       
+
+        [HttpGet]
+        [ResponseType(typeof(candidate))]
+        [Route("estadistica/{idCandidate}")]
+        public IHttpActionResult estadisticas(int idCandidate)
+        {
+            try
+            {
+                
+                var estadistica = db.citizen4.Where(x => x.idCandidates == idCandidate && x.Age >= 18 && x.idTown != 10).ToList();
+               
+                return Ok(estadistica);
+              
+
+            }
+            catch
+            {
+
+                return NotFound();
+            }
+        }
+
 
         // PUT: api/candidates/5
         [HttpPut]

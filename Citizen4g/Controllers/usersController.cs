@@ -116,16 +116,27 @@ namespace Citizen4g.Controllers
             
            user exuser = db.users.Where(x=> x.LoginUsers == user.LoginUsers).FirstOrDefault();
 
-                if (exuser != null) {
+                if (exuser != null)
+                {
 
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
-               
                 
                 }
-            db.users.Add(user);
-            db.SaveChanges();
-            return new HttpResponseMessage(HttpStatusCode.OK);
-            }
+
+                db.users.Add(user);
+
+                users_profiles userprofile = new users_profiles
+                {
+                    idUsers = user.idUsers,
+                    idProfiles = 2
+                };
+
+          
+                db.users_profiles.Add(userprofile);
+
+                db.SaveChanges();
+                return new HttpResponseMessage(HttpStatusCode.OK);
+        }
            
 
 

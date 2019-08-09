@@ -54,24 +54,6 @@ namespace Citizen4g.Controllers
 
             return Ok(msgtype);
 
-
-            //var mtype = db.msg_citizen4_candidates.Where(x => x.idMessageType == type).ToList();
-
-            //if (mtype != null)
-            //{
-            //    return Ok(mtype);
-
-            //}
-
-            //return NotFound();
-
-
-            //var msgType = db.Database.SqlQuery<msg_citizen4_candidates>(
-            //    @"SELECT *
-            //      FROM msg_citizen4_candidates
-            //      WHERE idMessageType = @type", new SqlParameter("@type", type));
-            //return Ok(msgType);
-
         }
 
 
@@ -151,6 +133,39 @@ namespace Citizen4g.Controllers
 
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
+        }
+
+
+        [HttpPost]
+        [Route("Qcandidate")]
+        public HttpResponseMessage Qcandidate([FromBody] msg_citizen4_candidates qu)
+        {
+
+            //metodo que permite que el cidadano registrado realice preguntas a su candidato
+            var citizen = db.citizen4.Where(x => x.idCitizen4 == qu.idCitizen4);
+
+            msg_citizen4_candidates mess = new msg_citizen4_candidates();
+
+            if (citizen != null)
+                    {
+              
+                mess.Title = qu.Title;
+                mess.Description = qu.Description;
+                mess.Link = qu.Link;
+                mess.Date = Convert.ToDateTime(qu.Date);
+                mess.Image = qu.Image;
+                mess.Answer = qu.Answer;
+                mess.idCandidates = citizen.FirstOrDefault().idCandidates;
+                mess.idCitizen4 = qu.idCitizen4;
+                mess.idMessageType = 6;
+
+                db.msg_citizen4_candidates.Add(mess);
+                db.SaveChanges();
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            
         }
 
 
