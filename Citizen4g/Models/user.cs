@@ -21,10 +21,11 @@ namespace Citizen4g.Models
             this.citizen4 = new HashSet<citizen4>();
             this.users_profiles = new HashSet<users_profiles>();
         }
-
+    
         public int idUsers { get; set; }
         public string LoginUsers { get; set; }
         public string PassUsers { get; set; }
+        public DateTime CreationDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<candidate> candidates { get; set; }

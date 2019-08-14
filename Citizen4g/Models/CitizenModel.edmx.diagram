@@ -8,12 +8,12 @@
         <EntityTypeShape EntityType="db_citizen4Model.candidate" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_citizen4Model.category" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="db_citizen4Model.citizen4" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_citizen4Model.focus" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_citizen4Model.focus_citizen4" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_citizen4Model.messagetype" Width="1.5" PointX="8.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.focus" Width="1.5" PointX="7.375" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.focus_citizen4" Width="1.5" PointX="7.375" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.messagetype" Width="1.5" PointX="8.25" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_citizen4Model.msg_citizen4_candidates" Width="1.5" PointX="10.5" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_citizen4Model.need" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_citizen4Model.needs_citizen4" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.need" Width="1.5" PointX="8.625" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_citizen4Model.needs_citizen4" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="db_citizen4Model.profile" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_citizen4Model.sector" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="db_citizen4Model.town" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />

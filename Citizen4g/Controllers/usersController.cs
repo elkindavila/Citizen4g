@@ -69,8 +69,13 @@ namespace Citizen4g.Controllers
         {
             try
             {
-                var us = db.users.Single(t => t.LoginUsers == login);
-                var ps = db.users.Single(p => p.PassUsers == pass);
+                var us = db.users.Where(x => x.LoginUsers == login && x.PassUsers == pass).FirstOrDefault();
+            
+                if (us == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Usuario o contraseña incorrecta ");
+
+                }
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
 
@@ -92,8 +97,15 @@ namespace Citizen4g.Controllers
             try
             {
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
-                var newUser = db.users.Single(t => t.idUsers == user.idUsers);
 
+                var newUser = db.users.Where(x => x.idUsers == user.idUsers && x.LoginUsers == user.LoginUsers).FirstOrDefault();
+
+                 if (newUser == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El id user y Nombre de user no se corresponden: " + user.idUsers);
+                }
+
+                newUser.idUsers = newUser.idUsers;
                 newUser.LoginUsers = user.LoginUsers;
                 newUser.PassUsers = user.PassUsers;
                 db.SaveChanges();
@@ -114,13 +126,13 @@ namespace Citizen4g.Controllers
         public HttpResponseMessage Create([FromBody]user user)
         {
             
-           user exuser = db.users.Where(x=> x.LoginUsers == user.LoginUsers).FirstOrDefault();
+           var exuser = db.users.Where(x=> x.LoginUsers == user.LoginUsers).FirstOrDefault();
 
                 if (exuser != null)
                 {
 
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-                
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Nombre de usuario ya existe " + user.LoginUsers);
+
                 }
 
                 db.users.Add(user);

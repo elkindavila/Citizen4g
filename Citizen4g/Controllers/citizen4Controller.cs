@@ -47,9 +47,15 @@ namespace Citizen4g.Controllers
         {
             try
             {
-                var result = new HttpResponseMessage(HttpStatusCode.OK);
-                var newUser = db.citizen4.Single(c => c.idCitizen4 == citizen4.idCitizen4);
+                
+                var newUser = db.citizen4.Where(c => c.idCitizen4 == citizen4.idCitizen4).FirstOrDefault();
 
+                if (newUser == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El id del ciudadano no existe! " + citizen4.idCitizen4);
+                }
+
+                newUser.idCitizen4 = newUser.idCitizen4;
                 newUser.FullName = citizen4.FullName;
                 newUser.Age = citizen4.Age;
                 newUser.Adress = citizen4.Adress;
@@ -66,10 +72,17 @@ namespace Citizen4g.Controllers
                 newUser.TypeTransportUse = citizen4.TypeTransportUse;
                 newUser.WorkEast = citizen4.WorkEast;
                 newUser.idTown = citizen4.idTown;
-                newUser.idUsers = citizen4.idUsers;
-                newUser.idCandidates = citizen4.idCandidates;
+
+                if (citizen4.idTown == 0)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Se requiere id valido para un municipio!");
+                }
+                
+
+                newUser.idUsers = newUser.idUsers;
+                newUser.idCandidates = newUser.idCandidates;
                 db.SaveChanges();
-                return result;
+                return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch
             {
@@ -83,12 +96,34 @@ namespace Citizen4g.Controllers
         [Route("create")]
         public HttpResponseMessage Create([FromBody]citizen4 citizen4)
         {
+
+            
+            user registroMasActualizado = db.users.OrderByDescending(x => x.idUsers).First();
+            var validar = db.citizen4.Where(x => x.idCandidates == citizen4.idCandidates && x.idUsers == registroMasActualizado.idUsers).FirstOrDefault();
+
             try
             {
-                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                if (validar != null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Usuario " + registroMasActualizado.idUsers + " ya sigue al canditato " + citizen4.idCandidates);
+                }
+
+                if (citizen4.idCandidates == 0)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El ciudaddado debe elegir a un candidato!");
+                }
+
+                citizen4.idUsers = registroMasActualizado.idUsers;
+
+                if (citizen4.idTown == 0)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Se requiere id valido para un municipio!");
+                }
+
+
                 db.citizen4.Add(citizen4);
                 db.SaveChanges();
-                return result;
+                return new HttpResponseMessage(HttpStatusCode.OK); ;
             }
             catch
             {

@@ -56,8 +56,6 @@ namespace Citizen4g.Controllers
 
         }
 
-
-
         // PUT: api/message/5
 
         [HttpPut]
@@ -89,8 +87,6 @@ namespace Citizen4g.Controllers
         }
 
         // POST: api/message
-
-
         [HttpPost]
         [Route("enviarMsgCitizens")]
         public HttpResponseMessage EnviarMsg([FromBody] msg_citizen4_candidates msg)
