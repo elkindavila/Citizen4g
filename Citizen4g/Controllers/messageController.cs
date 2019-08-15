@@ -46,7 +46,7 @@ namespace Citizen4g.Controllers
         {
 
 
-            msg_citizen4_candidates msgtype = db.msg_citizen4_candidates.Where(x=> x.idMessageType == type).FirstOrDefault();
+            msg_citizen4_candidates msgtype = db.msg_citizen4_candidates.Where(x => x.idMessageType == type).FirstOrDefault();
             if (msgtype == null)
             {
                 return NotFound();
@@ -143,8 +143,8 @@ namespace Citizen4g.Controllers
             msg_citizen4_candidates mess = new msg_citizen4_candidates();
 
             if (citizen != null)
-                    {
-              
+            {
+
                 mess.Title = qu.Title;
                 mess.Description = qu.Description;
                 mess.Link = qu.Link;
@@ -160,10 +160,39 @@ namespace Citizen4g.Controllers
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
 
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+
         }
 
+        [HttpPost]
+        [Route("answer/{idCitizen},{idmessage},{answerc}")]
+        public HttpResponseMessage answerc(int idCitizen, int idmessage, string answerc)
+        {
+
+            //metodo que permite que el cidadano registrado realice preguntas a su candidato
+            var answer = db.msg_citizen4_candidates.Where(x=> x.idCitizen4 == idCitizen && x.idMessageCitizen4== idmessage && x.idMessageType == 6).FirstOrDefault();
+
+            if (answer == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No existen preguntas para el id Citizen : " + idCitizen);
+
+            }
+
+            answer.Title = answer.Title;
+            answer.Description = answer.Description;
+            answer.Link = answer.Link;
+            answer.Date = Convert.ToDateTime(answer.Date);
+            answer.Image = answer.Image;
+            answer.Answer = answerc;
+            answer.idCandidates = answer.idCandidates;
+            answer.idCitizen4 = answer.idCitizen4;
+            answer.idMessageType = answer.idMessageType;
+
+           // db.msg_citizen4_candidates.Add(answer);
+            db.SaveChanges();
+            return new HttpResponseMessage(HttpStatusCode.OK);
+
+        }
 
         // DELETE: api/message/5
         [ResponseType(typeof(msg_citizen4_candidates))]
