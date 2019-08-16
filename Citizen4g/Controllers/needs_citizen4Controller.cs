@@ -12,12 +12,13 @@ using Citizen4g.Models;
 
 namespace Citizen4g.Controllers
 {
-    [RoutePrefix("api/need")]
+    [RoutePrefix("api/needcitizen")]
     public class needs_citizen4Controller : ApiController
     {
         private db_citizen4Entities1 db = new db_citizen4Entities1();
 
         // GET: api/needs_citizen4
+        [Route("")]
         public IEnumerable<needs_citizen4> Getneeds_citizen4()
         {
             return db.needs_citizen4.ToList();

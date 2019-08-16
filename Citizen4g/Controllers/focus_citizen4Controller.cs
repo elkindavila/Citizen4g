@@ -12,7 +12,7 @@ using Citizen4g.Models;
 
 namespace Citizen4g.Controllers
 {
-    [RoutePrefix("api/focus")]
+    [RoutePrefix("api/focuscitizen")]
     public class focus_citizen4Controller : ApiController
     {
         private db_citizen4Entities1 db = new db_citizen4Entities1();

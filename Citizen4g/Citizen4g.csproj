@@ -140,9 +140,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\candidatesController.cs" />
     <Compile Include="Controllers\citizen4Controller.cs" />
+    <Compile Include="Controllers\focusController.cs" />
     <Compile Include="Controllers\focus_citizen4Controller.cs" />
     <Compile Include="Controllers\messageController.cs" />
     <Compile Include="Controllers\messagetypesController.cs" />
+    <Compile Include="Controllers\needsController.cs" />
     <Compile Include="Controllers\needs_citizen4Controller.cs" />
     <Compile Include="Controllers\sectorsController.cs" />
     <Compile Include="Controllers\townsController.cs" />

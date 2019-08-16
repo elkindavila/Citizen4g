@@ -188,7 +188,6 @@ namespace Citizen4g.Controllers
             answer.idCitizen4 = answer.idCitizen4;
             answer.idMessageType = answer.idMessageType;
 
-           // db.msg_citizen4_candidates.Add(answer);
             db.SaveChanges();
             return new HttpResponseMessage(HttpStatusCode.OK);
 
