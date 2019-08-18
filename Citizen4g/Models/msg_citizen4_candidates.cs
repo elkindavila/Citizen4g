@@ -18,7 +18,7 @@ namespace Citizen4g.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public string Link { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public DateTime Date { get; set; }
         public byte[] Image { get; set; }
         public string Answer { get; set; }
         public int idCandidates { get; set; }

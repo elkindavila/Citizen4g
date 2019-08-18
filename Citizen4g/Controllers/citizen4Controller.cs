@@ -58,6 +58,13 @@ namespace Citizen4g.Controllers
                 newUser.idCitizen4 = newUser.idCitizen4;
                 newUser.FullName = citizen4.FullName;
                 newUser.Age = citizen4.Age;
+
+                if (citizen4.Age <=18)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Edad debe ser igual o mayor de 18 años");
+
+                }
+
                 newUser.Adress = citizen4.Adress;
                 newUser.Gender = citizen4.Gender;
                 newUser.CellPhone = citizen4.CellPhone;
@@ -118,6 +125,11 @@ namespace Citizen4g.Controllers
                 if (citizen4.idTown == 0)
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Se requiere id valido para un municipio!");
+                }
+
+                if (citizen4.Age <= 18)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Edad debe ser igual o mayor de 18 años");
                 }
 
 

@@ -58,22 +58,73 @@ namespace Citizen4g.Controllers
 
         [HttpGet]
         [ResponseType(typeof(candidate))]
-        [Route("estadistica/{idCandidate}")]
-        public IHttpActionResult estadisticas(int idCandidate)
+        [Route("estadistica/{idCandidate},{idEstadistica}")]
+        public HttpResponseMessage estadisticas(int idCandidate, int idEstadistica)
         {
             try
             {
-                
-                var estadistica = db.citizen4.Where(x => x.idCandidates == idCandidate && x.Age >= 18 && x.idTown != 10).ToList();
                
-                return Ok(estadistica);
-              
+
+                if (idEstadistica >=1 && idEstadistica <= 10)
+                {
+                    if (idEstadistica == 1)
+                    {
+                        // ciudadanos del candidato
+                        var estadistica1 = (from c in db.citizen4
+                                           join cn in db.candidates on c.idTown equals cn.idTown
+                                           where c.idCandidates == idCandidate
+                                           select cn).FirstOrDefault();                  
+
+                        if (estadistica1 == null)
+                        {
+                            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El candidato no tiene seguidores");
+                        }
+
+                        return Request.CreateResponse(HttpStatusCode.OK,estadistica1); ;
+                    }
+
+                    if (idEstadistica == 2)
+                    {
+
+                        // Necesidades de los ciudadanos por candidato
+                        var estadistica2 = (from nc in db.needs_citizen4
+                                            join ct in db.citizen4 on nc.idCitizen4 equals ct.idCitizen4
+                                            where ct.idCandidates == idCandidate
+                                            select ct).FirstOrDefault();
+
+                        if (estadistica2 == null)
+                        {
+                            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No registran necesidades de ciudadanos para el candidato " + idCandidate);
+                        }
+
+                        return Request.CreateResponse(HttpStatusCode.OK, estadistica2); ;
+                    }
+
+                    if (idEstadistica == 3)
+                    {
+                        // prioridades de los ciudadanos por candidato
+                        var estadistica3 = (from nc in db.focus_citizen4
+                                            join ct in db.citizen4 on nc.idCitizen4 equals ct.idCitizen4
+                                            where ct.idCandidates == idCandidate
+                                            select ct).FirstOrDefault();
+
+                        if (estadistica3 == null)
+                        {
+                            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No registran prioridades de ciudadanos para el candidato " + idCandidate);
+                        }
+
+                        return Request.CreateResponse(HttpStatusCode.OK, estadistica3); ;
+                    }
+
+                }
+
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El codigo de la estadisticas debe estar entre 1 y 10");
 
             }
             catch
             {
 
-                return NotFound();
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
 

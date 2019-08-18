@@ -18,13 +18,15 @@ namespace Citizen4g.Controllers
         private db_citizen4Entities1 db = new db_citizen4Entities1();
 
         // GET: api/focus
-        public IQueryable<focus> Getfoci()
+        [Route("")]
+        public IEnumerable<focus> Getfoci()
         {
-            return db.foci;
+            return db.foci.ToList();
         }
 
         // GET: api/focus/5
         [ResponseType(typeof(focus))]
+        [Route("{id:int}")]
         public IHttpActionResult Getfocus(int id)
         {
             focus focus = db.foci.Find(id);
@@ -37,57 +39,55 @@ namespace Citizen4g.Controllers
         }
 
         // PUT: api/focus/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult Putfocus(int id, focus focus)
+        [HttpPut]
+        [Route("update")]
+        public HttpResponseMessage Update([FromBody]focus focus)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != focus.idFocus)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(focus).State = EntityState.Modified;
-
             try
             {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!focusExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return StatusCode(HttpStatusCode.NoContent);
+                var validarfocus = db.foci.Where(x => x.idFocus == focus.idFocus).FirstOrDefault();
+
+                if (validarfocus == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Prioridad no Registrada ");
+                }
+
+
+                validarfocus.idFocus = validarfocus.idFocus;
+                validarfocus.DescriptionFocus = focus.DescriptionFocus;
+
+                db.SaveChanges();
+                return new HttpResponseMessage(HttpStatusCode.OK + validarfocus.idFocus);
+            }
+            catch
+            {
+
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
         }
 
         // POST: api/focus
         [ResponseType(typeof(focus))]
-        public IHttpActionResult Postfocus(focus focus)
+        [HttpPost]
+        [Route("create")]
+        public HttpResponseMessage Create([FromBody]focus focus)
         {
-            if (!ModelState.IsValid)
+            if (focus.DescriptionFocus == "")
             {
-                return BadRequest(ModelState);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "La descripcion de la prioridad no debe ser vacia");
             }
 
             db.foci.Add(focus);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = focus.idFocus }, focus);
+            return new HttpResponseMessage(HttpStatusCode.OK + focus.idFocus);
         }
 
         // DELETE: api/focus/5
         [ResponseType(typeof(focus))]
+        [HttpDelete]
+        [Route("delete/{id}")]
         public IHttpActionResult Deletefocus(int id)
         {
             focus focus = db.foci.Find(id);

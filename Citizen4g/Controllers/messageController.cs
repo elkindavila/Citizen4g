@@ -64,7 +64,7 @@ namespace Citizen4g.Controllers
         {
             try
             {
-                var result = new HttpResponseMessage(HttpStatusCode.OK);
+               
                 var newUser = db.msg_citizen4_candidates.Single(t => t.idMessageCitizen4 == message.idMessageCitizen4);
 
                 newUser.Title = message.Title;
@@ -77,7 +77,7 @@ namespace Citizen4g.Controllers
                 newUser.idCitizen4 = message.idCitizen4;
                 newUser.idMessageType = message.idMessageType;
                 db.SaveChanges();
-                return result;
+                return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch
             {
@@ -88,14 +88,14 @@ namespace Citizen4g.Controllers
 
         // POST: api/message
         [HttpPost]
-        [Route("enviarMsgCitizens")]
-        public HttpResponseMessage EnviarMsg([FromBody] msg_citizen4_candidates msg)
+        [Route("enviarmessage")]
+
+        public HttpResponseMessage EnviarMsg([FromUri]msg_citizen4_candidates msgs)
         {
             try
             {
 
-                var result = new HttpResponseMessage(HttpStatusCode.OK);
-                var candidate = db.candidates.FirstOrDefault(c => c.idCandidates == msg.idCandidates);
+                var candidate = db.candidates.FirstOrDefault(c => c.idCandidates == msgs.idCandidates);
                 var citizen = candidate.citizen4;
 
                 using (var contex = new db_citizen4Entities1())
@@ -106,14 +106,14 @@ namespace Citizen4g.Controllers
                     foreach (var dato in citizen)
                     {
                         msgCanCit.idCitizen4 = dato.idCitizen4;
-                        msgCanCit.Title = msg.Title;
-                        msgCanCit.Description = msg.Description;
-                        msgCanCit.Link = msg.Link;
-                        msgCanCit.Date = Convert.ToDateTime(msg.Date);
-                        msgCanCit.Image = msg.Image;
-                        msgCanCit.Answer = msg.Answer;
-                        msgCanCit.idCandidates = msg.idCandidates;
-                        msgCanCit.idMessageType = msg.idMessageType;
+                        msgCanCit.Title = msgs.Title;
+                        msgCanCit.Description = msgs.Description;
+                        msgCanCit.Link = msgs.Link;
+                        msgCanCit.Date = Convert.ToDateTime(msgs.Date);
+                        msgCanCit.Image = msgs.Image;
+                        msgCanCit.Answer = msgs.Answer;
+                        msgCanCit.idCandidates = msgs.idCandidates;
+                        msgCanCit.idMessageType = msgs.idMessageType;
 
                         contex.msg_citizen4_candidates.Add(msgCanCit);
                         contex.SaveChanges();
@@ -121,8 +121,7 @@ namespace Citizen4g.Controllers
 
                 }
 
-                return result;
-
+                return Request.CreateResponse(HttpStatusCode.OK,"Mensages enviados correctamente! para el candidado " + msgs.idCandidates); 
             }
             catch
             {
