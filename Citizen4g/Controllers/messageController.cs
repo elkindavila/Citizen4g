@@ -89,8 +89,7 @@ namespace Citizen4g.Controllers
         // POST: api/message
         [HttpPost]
         [Route("enviarmessage")]
-
-        public HttpResponseMessage EnviarMsg([FromUri]msg_citizen4_candidates msgs)
+        public HttpResponseMessage Enviarmessage([FromBody]msg_citizen4_candidates msgs)
         {
             try
             {
