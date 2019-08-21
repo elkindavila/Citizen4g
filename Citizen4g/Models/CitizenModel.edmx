@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="db_citizen4Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="db_citizen4Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="candidates">
           <Key>
             <PropertyRef Name="idCandidates" />
@@ -14,8 +14,8 @@
           <Property Name="FullName" Type="varchar" MaxLength="100" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Image" Type="mediumblob" />
-          <Property Name="Description" Type="varchar" MaxLength="255" />
-          <Property Name="DescriptionCampaign" Type="varchar" MaxLength="700" />
+          <Property Name="Description" Type="varchar" MaxLength="5000" />
+          <Property Name="DescriptionCampaign" Type="varchar" MaxLength="5000" />
           <Property Name="LinkCampaign" Type="varchar" MaxLength="255" />
           <Property Name="LogoCampaign" Type="mediumblob" />
           <Property Name="idTown" Type="int" Nullable="false" />
@@ -25,7 +25,7 @@
           <Key>
             <PropertyRef Name="category_id" />
           </Key>
-          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="citizen4">
@@ -50,7 +50,7 @@
           <Property Name="WorkEast" Type="tinyint" />
           <Property Name="idTown" Type="int" Nullable="false" />
           <Property Name="idUsers" Type="int" Nullable="false" />
-          <Property Name="idCandidates" Type="int" Nullable="false" />
+          <Property Name="idCandidates" Type="int" />
         </EntityType>
         <EntityType Name="focus">
           <Key>
@@ -80,11 +80,11 @@
           </Key>
           <Property Name="idMessageCitizen4" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="600" Nullable="false" />
           <Property Name="Link" Type="varchar" MaxLength="300" />
-          <Property Name="Date" Type="date" />
+          <Property Name="Date" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Image" Type="mediumblob" />
-          <Property Name="Answer" Type="varchar" MaxLength="45" />
+          <Property Name="Answer" Type="varchar" MaxLength="500" />
           <Property Name="idCandidates" Type="int" Nullable="false" />
           <Property Name="idCitizen4" Type="int" Nullable="false" />
           <Property Name="idMessageType" Type="int" Nullable="false" />
@@ -94,7 +94,7 @@
             <PropertyRef Name="idNeeds" />
           </Key>
           <Property Name="idNeeds" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DescriptionNeed" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="DescriptionNeed" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="needs_citizen4">
           <Key>
@@ -134,6 +134,7 @@
           <Property Name="idUsers" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LoginUsers" Type="varchar" MaxLength="30" />
           <Property Name="PassUsers" Type="varchar" MaxLength="10" />
+          <Property Name="CreationDate" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="users_profiles">
           <Key>
@@ -168,7 +169,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Citizen4_Candidates1">
-          <End Role="candidates" Type="Self.candidates" Multiplicity="1" />
+          <End Role="candidates" Type="Self.candidates" Multiplicity="0..1" />
           <End Role="citizen4" Type="Self.citizen4" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="candidates">
@@ -399,8 +400,7 @@
             <End Role="users_profiles" EntitySet="users_profiles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="db_citizen4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -561,6 +561,7 @@
           <NavigationProperty Name="candidates" Relationship="Self.fk_Candidates_Users1" FromRole="users" ToRole="candidates" />
           <NavigationProperty Name="citizen4" Relationship="Self.fk_Citizen4_Users1" FromRole="users" ToRole="citizen4" />
           <NavigationProperty Name="users_profiles" Relationship="Self.fk_Users_Profiles_Users1" FromRole="users" ToRole="users_profiles" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="users_profiles">
           <Key>
@@ -971,6 +972,7 @@
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="db_citizen4Model.user">
               <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="idUsers" ColumnName="idUsers" />
                 <ScalarProperty Name="LoginUsers" ColumnName="LoginUsers" />
                 <ScalarProperty Name="PassUsers" ColumnName="PassUsers" />
