@@ -82,7 +82,7 @@
           <Property Name="Title" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="600" Nullable="false" />
           <Property Name="Link" Type="varchar" MaxLength="300" />
-          <Property Name="Date" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
           <Property Name="Image" Type="mediumblob" />
           <Property Name="Answer" Type="varchar" MaxLength="500" />
           <Property Name="idCandidates" Type="int" Nullable="false" />

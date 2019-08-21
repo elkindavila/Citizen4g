@@ -80,7 +80,7 @@ namespace Citizen4g.Controllers
                 return new HttpResponseMessage(HttpStatusCode.OK);
 
             }
-            catch
+            catch(Exception ex)
             {
 
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
