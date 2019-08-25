@@ -18,7 +18,7 @@ namespace Citizen4g.Controllers
     public class usersController : ApiController
     {
 
-        private db_citizen4Entities1 db = new db_citizen4Entities1();
+        private db_citizen4Entities2 db = new db_citizen4Entities2();
 
         // GET: api/users
         [Route("")]
@@ -80,7 +80,7 @@ namespace Citizen4g.Controllers
                 return new HttpResponseMessage(HttpStatusCode.OK);
 
             }
-            catch
+            catch (Exception ex)
             {
 
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);

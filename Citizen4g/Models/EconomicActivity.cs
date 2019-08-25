@@ -12,26 +12,18 @@ namespace Citizen4g.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class user
+    public partial class EconomicActivity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user()
+        public EconomicActivity()
         {
-            this.candidates = new HashSet<candidate>();
             this.citizen4 = new HashSet<citizen4>();
-            this.users_profiles = new HashSet<users_profiles>();
         }
     
-        public int idUsers { get; set; }
-        public string LoginUsers { get; set; }
-        public string PassUsers { get; set; }
-        public Nullable<System.DateTime> CreationDate { get; set; }
+        public int idEconomicActivity { get; set; }
+        public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<candidate> candidates { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<citizen4> citizen4 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users_profiles> users_profiles { get; set; }
     }
 }

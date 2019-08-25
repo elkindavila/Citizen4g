@@ -15,7 +15,7 @@ namespace Citizen4g.Controllers
     [RoutePrefix("api/candidates")]
     public class candidatesController : ApiController
     {
-        private db_citizen4Entities1 db = new db_citizen4Entities1();
+        private db_citizen4Entities2 db = new db_citizen4Entities2();
 
         // GET: api/candidates
         [Route("")]
@@ -63,63 +63,124 @@ namespace Citizen4g.Controllers
         {
             try
             {
-               
 
-                if (idEstadistica >=1 && idEstadistica <= 10)
+                if (idEstadistica >= 1 && idEstadistica <= 12)
                 {
                     if (idEstadistica == 1)
                     {
                         // ciudadanos del candidato
-                        var estadistica1 = (from c in db.citizen4
-                                           join cn in db.candidates on c.idTown equals cn.idTown
-                                           where c.idCandidates == idCandidate
-                                           select cn).FirstOrDefault();                  
-
-                        if (estadistica1 == null)
-                        {
-                            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El candidato no tiene seguidores");
-                        }
-
-                        return Request.CreateResponse(HttpStatusCode.OK,estadistica1); ;
+                        var cc = (from c in db.citizen4
+                                  join cn in db.candidates on c.idTown equals cn.idTown
+                                  where c.idCandidates == idCandidate
+                                  select cn).FirstOrDefault();
+                        return Request.CreateResponse(HttpStatusCode.OK, cc);
                     }
-
-                    if (idEstadistica == 2)
+                    else if (idEstadistica == 2)
+                    {
+                        //Numero de personas por rango de edades
+                        var edad = (from c in db.citizen4
+                                    group c by c.Age into edades
+                                    where edades.FirstOrDefault().idCandidates == idCandidate
+                                    select edades).FirstOrDefault();
+                        return Request.CreateResponse(HttpStatusCode.OK, edad);
+                    }
+                    else if (idEstadistica == 3)
+                    {
+                        //#de personas por zonas (barrios veredas)
+                        var sector = (from c in db.citizen4
+                                      group c by c.idSector into sectores
+                                      where sectores.FirstOrDefault().idCandidates == idCandidate
+                                      select sectores).FirstOrDefault();
+                        return Request.CreateResponse(HttpStatusCode.OK, sector);
+                    }
+                    else if (idEstadistica == 4)
                     {
 
-                        // Necesidades de los ciudadanos por candidato
-                        var estadistica2 = (from nc in db.needs_citizen4
-                                            join ct in db.citizen4 on nc.idCitizen4 equals ct.idCitizen4
-                                            where ct.idCandidates == idCandidate
-                                            select ct).FirstOrDefault();
-
-                        if (estadistica2 == null)
-                        {
-                            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No registran necesidades de ciudadanos para el candidato " + idCandidate);
-                        }
-
-                        return Request.CreateResponse(HttpStatusCode.OK, estadistica2); ;
+                        //#de personas por nivel educativo
+                        var edu = (from c in db.citizen4
+                                   group c by c.educationLevel into leveledu
+                                   where leveledu.FirstOrDefault().idCandidates == idCandidate
+                                   select leveledu).FirstOrDefault();
+                        return Request.CreateResponse(HttpStatusCode.OK, edu);
+                    }
+                    else if (idEstadistica == 5)
+                    {
+                        // Personas por Actividad economica
+                        var act = (from c in db.citizen4
+                                   group c by c.economicActivity into EconomicAc
+                                   where EconomicAc.FirstOrDefault().idCandidates == idCandidate
+                                   select EconomicAc).FirstOrDefault();
+                        return Request.CreateResponse(HttpStatusCode.OK, act);
+                    }
+                    else if (idEstadistica == 6)
+                    {
+                        //Personas por Estado civil
+                        var est = (from c in db.citizen4
+                                   group c by c.CivilStatus into civilsta
+                                   where civilsta.FirstOrDefault().idCandidates == idCandidate
+                                   select civilsta).FirstOrDefault();
+                        return Request.CreateResponse(HttpStatusCode.OK, est);
+                    }
+                    else if (idEstadistica == 7)
+                    {
+                        //Personas Cabeza de familia
+                        var head = (from c in db.citizen4
+                                    group c by c.HeadFamily into headF
+                                    where headF.FirstOrDefault().idCandidates == idCandidate
+                                    select headF).FirstOrDefault();
+                        return Request.CreateResponse(HttpStatusCode.OK, head);
+                    }
+                    else if (idEstadistica == 8)
+                    {
+                        //Empleados actualmente
+                        var empl = (from c in db.citizen4
+                                    group c by c.EmployeedNow into employed
+                                    where employed.FirstOrDefault().idCandidates == idCandidate
+                                    select employed).FirstOrDefault();
+                        return Request.CreateResponse(HttpStatusCode.OK, empl);
                     }
 
-                    if (idEstadistica == 3)
+                    else if (idEstadistica == 9)
+                    {
+                        //personas por tipo de transporte
+                        var trs = (from c in db.citizen4
+                                   group c by c.TypeTransportUse into typet
+                                   where typet.FirstOrDefault().idCandidates == idCandidate
+                                   select typet).FirstOrDefault();
+                        return Request.CreateResponse(HttpStatusCode.OK, trs);
+
+                    }
+                    else if (idEstadistica == 10)
+                    {
+                        //personas que trabajan en el oriente
+                        var wr = (from c in db.citizen4
+                                  group c by c.WorkEast into workE
+                                  where workE.FirstOrDefault().idCandidates == idCandidate
+                                  select workE).FirstOrDefault();
+                        return Request.CreateResponse(HttpStatusCode.OK, wr);
+                    }
+                    else if (idEstadistica == 11)
+                    {
+                        // Necesidades de los ciudadanos por candidato
+                        var need = (from nc in db.needs_citizen4
+                                    join ct in db.citizen4 on nc.idCitizen4 equals ct.idCitizen4
+                                    where ct.idCandidates == idCandidate
+                                    select ct).FirstOrDefault();
+                        return Request.CreateResponse(HttpStatusCode.OK, need);
+
+                    }
+                    else if (idEstadistica == 12)
                     {
                         // prioridades de los ciudadanos por candidato
-                        var estadistica3 = (from nc in db.focus_citizen4
-                                            join ct in db.citizen4 on nc.idCitizen4 equals ct.idCitizen4
-                                            where ct.idCandidates == idCandidate
-                                            select ct).FirstOrDefault();
-
-                        if (estadistica3 == null)
-                        {
-                            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No registran prioridades de ciudadanos para el candidato " + idCandidate);
-                        }
-
-                        return Request.CreateResponse(HttpStatusCode.OK, estadistica3); ;
+                        var foc = (from nc in db.focus_citizen4
+                                   join ct in db.citizen4 on nc.idCitizen4 equals ct.idCitizen4
+                                   where ct.idCandidates == idCandidate
+                                   select ct).FirstOrDefault();
+                        return Request.CreateResponse(HttpStatusCode.OK, foc);
                     }
 
                 }
-
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El codigo de la estadisticas debe estar entre 1 y 10");
-
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El codigo de la estadisticas debe estar entre 1 y 12");
             }
             catch
             {
@@ -153,7 +214,54 @@ namespace Citizen4g.Controllers
                 db.SaveChanges();
                 return result;
             }
-            catch
+            catch (Exception ex)
+            {
+
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+        }
+
+        [HttpPut]
+        [Route("updateDescriptions")]
+        public HttpResponseMessage UpdateDescription([FromBody]candidate candidate)
+        {
+            try
+            {
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                var newUser = db.candidates.Where(c => c.idCandidates == candidate.idCandidates).FirstOrDefault();
+
+                newUser.idCard = newUser.idCard;
+                newUser.FullName = newUser.FullName;
+                newUser.Email = newUser.Email;
+                newUser.Image = newUser.Image;
+
+                if (candidate.Description == "" || candidate.Description == null)
+                {
+                    newUser.Description = newUser.Description;
+                }
+                else
+                {
+                    newUser.Description = candidate.Description;
+                }
+
+                if (candidate.DescriptionCampaign == "" || candidate.DescriptionCampaign == null)
+                {
+                    newUser.DescriptionCampaign = newUser.DescriptionCampaign;
+                }
+                else
+                {
+                    newUser.DescriptionCampaign = candidate.DescriptionCampaign;
+                }
+
+                newUser.LinkCampaign = newUser.LinkCampaign;
+                newUser.LogoCampaign = newUser.LogoCampaign;
+                newUser.idTown = newUser.idTown;
+                newUser.idUsers = newUser.idUsers;
+
+                db.SaveChanges();
+                return result;
+            }
+            catch (Exception ex)
             {
 
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);

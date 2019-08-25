@@ -16,7 +16,7 @@ namespace Citizen4g.Controllers
     [RoutePrefix("api/messages")]
     public class messageController : ApiController
     {
-        private db_citizen4Entities1 db = new db_citizen4Entities1();
+        private db_citizen4Entities2 db = new db_citizen4Entities2();
 
         // GET: api/message
         [Route("")]
@@ -70,16 +70,16 @@ namespace Citizen4g.Controllers
                 newUser.Title = message.Title;
                 newUser.Description = message.Description;
                 newUser.Link = message.Link;
-                newUser.Date = message.Date;
+                newUser.Date = Convert.ToDateTime(message.Date);
                 newUser.Image = message.Image;
-                newUser.Answer = message.Answer;
-                newUser.idCandidates = message.idCandidates;
-                newUser.idCitizen4 = message.idCitizen4;
+                newUser.Answer = newUser.Answer;
+                newUser.idCandidates = newUser.idCandidates;
+                newUser.idCitizen4 = newUser.idCandidates;
                 newUser.idMessageType = message.idMessageType;
                 db.SaveChanges();
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
-            catch
+            catch (Exception ex)
             {
 
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
@@ -97,7 +97,7 @@ namespace Citizen4g.Controllers
                 var candidate = db.candidates.FirstOrDefault(c => c.idCandidates == msgs.idCandidates);
                 var citizen = candidate.citizen4;
 
-                using (var contex = new db_citizen4Entities1())
+                using (var contex = new db_citizen4Entities2())
                 {
                     var msgCanCit = new msg_citizen4_candidates();
 
@@ -122,7 +122,7 @@ namespace Citizen4g.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.OK,"Mensages enviados correctamente! para el candidado " + msgs.idCandidates); 
             }
-            catch
+            catch (Exception ex)
             {
 
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
@@ -131,12 +131,12 @@ namespace Citizen4g.Controllers
 
 
         [HttpPost]
-        [Route("Qcandidate")]
+        [Route("preguntaalcandidato")]
         public HttpResponseMessage Qcandidate([FromBody] msg_citizen4_candidates qu)
         {
 
             //metodo que permite que el cidadano registrado realice preguntas a su candidato
-            var citizen = db.citizen4.Where(x => x.idCitizen4 == qu.idCitizen4);
+            citizen4 citizen = db.citizen4.Where(x => x.idCitizen4 == qu.idCitizen4).FirstOrDefault();
 
             msg_citizen4_candidates mess = new msg_citizen4_candidates();
 
@@ -149,7 +149,7 @@ namespace Citizen4g.Controllers
                 mess.Date = Convert.ToDateTime(qu.Date);
                 mess.Image = qu.Image;
                 mess.Answer = qu.Answer;
-                mess.idCandidates = citizen.FirstOrDefault().idCandidates;
+                mess.idCandidates = citizen.idCandidates.Value;
                 mess.idCitizen4 = qu.idCitizen4;
                 mess.idMessageType = 6;
 
@@ -158,7 +158,7 @@ namespace Citizen4g.Controllers
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
 
-            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El id del ciudadano " + qu.idCitizen4 + " No existe! " );
 
         }
 

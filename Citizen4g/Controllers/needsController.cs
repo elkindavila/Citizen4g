@@ -15,7 +15,7 @@ namespace Citizen4g.Controllers
     [RoutePrefix("api/needs")]
     public class needsController : ApiController
     {
-        private db_citizen4Entities1 db = new db_citizen4Entities1();
+        private db_citizen4Entities2 db = new db_citizen4Entities2();
 
         // GET: api/needs
         [Route("")]

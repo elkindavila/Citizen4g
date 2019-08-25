@@ -20,7 +20,7 @@ namespace Citizen4g.Controllers
     [RoutePrefix("api/towns")]                  //ADD of new
     public class townsController : ApiController
     {
-        private db_citizen4Entities1 db = new db_citizen4Entities1();
+        private db_citizen4Entities2 db = new db_citizen4Entities2();
 
         // GET: api/towns
         [Route("")]                            //ADD of new

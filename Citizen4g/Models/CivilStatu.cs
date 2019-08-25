@@ -12,9 +12,18 @@ namespace Citizen4g.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class category
+    public partial class CivilStatu
     {
-        public int category_id { get; set; }
-        public string name { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CivilStatu()
+        {
+            this.citizen4 = new HashSet<citizen4>();
+        }
+    
+        public int idCivilStatus { get; set; }
+        public string Description { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<citizen4> citizen4 { get; set; }
     }
 }

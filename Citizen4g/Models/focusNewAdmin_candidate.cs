@@ -12,14 +12,13 @@ namespace Citizen4g.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class needs_citizen4
+    public partial class focusNewAdmin_candidate
     {
-        public int idNeeds_Citizen4 { get; set; }
-        public int idCitizen4 { get; set; }
-        public int idNeeds { get; set; }
-        public string DescriptionAdd { get; set; }
+        public int idfocusNewAdmin_candidate { get; set; }
+        public int idFocusNewAdmin { get; set; }
+        public int idCandidate { get; set; }
     
-        public virtual citizen4 citizen4 { get; set; }
-        public virtual need need { get; set; }
+        public virtual candidate candidate { get; set; }
+        public virtual FocusNewAdmin FocusNewAdmin { get; set; }
     }
 }

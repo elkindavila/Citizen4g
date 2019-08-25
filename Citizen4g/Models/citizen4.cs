@@ -30,26 +30,32 @@ namespace Citizen4g.Models
         public string CellPhone { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public string EconomicActivity { get; set; }
-        public string EducationLevel { get; set; }
+        public Nullable<int> economicActivity { get; set; }
+        public Nullable<int> educationLevel { get; set; }
         public Nullable<sbyte> HeadFamily { get; set; }
         public Nullable<sbyte> EmployeedNow { get; set; }
         public string WageLevel { get; set; }
+        public Nullable<int> TypeTransportUse { get; set; }
         public string Profession { get; set; }
-        public string TypeTransportUse { get; set; }
         public Nullable<sbyte> WorkEast { get; set; }
+        public Nullable<int> CivilStatus { get; set; }
         public int idTown { get; set; }
         public int idUsers { get; set; }
-        public int idCandidates { get; set; }
+        public Nullable<int> idCandidates { get; set; }
+        public Nullable<int> idSector { get; set; }
     
         public virtual candidate candidate { get; set; }
         public virtual town town { get; set; }
         public virtual user user { get; set; }
+        public virtual CivilStatu CivilStatu { get; set; }
+        public virtual EconomicActivity EconomicActivity1 { get; set; }
+        public virtual EducationLevel EducationLevel1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<focus_citizen4> focus_citizen4 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<msg_citizen4_candidates> msg_citizen4_candidates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<needs_citizen4> needs_citizen4 { get; set; }
+        public virtual TypeTrasnport TypeTrasnport { get; set; }
     }
 }

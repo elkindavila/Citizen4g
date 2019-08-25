@@ -12,14 +12,18 @@ namespace Citizen4g.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class needs_citizen4
+    public partial class EducationLevel
     {
-        public int idNeeds_Citizen4 { get; set; }
-        public int idCitizen4 { get; set; }
-        public int idNeeds { get; set; }
-        public string DescriptionAdd { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public EducationLevel()
+        {
+            this.citizen4 = new HashSet<citizen4>();
+        }
     
-        public virtual citizen4 citizen4 { get; set; }
-        public virtual need need { get; set; }
+        public int idEducationLevel { get; set; }
+        public string Description { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<citizen4> citizen4 { get; set; }
     }
 }

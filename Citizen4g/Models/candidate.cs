@@ -17,6 +17,7 @@ namespace Citizen4g.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public candidate()
         {
+            this.focusNewAdmin_candidate = new HashSet<focusNewAdmin_candidate>();
             this.citizen4 = new HashSet<citizen4>();
             this.msg_citizen4_candidates = new HashSet<msg_citizen4_candidates>();
         }
@@ -30,9 +31,12 @@ namespace Citizen4g.Models
         public string DescriptionCampaign { get; set; }
         public string LinkCampaign { get; set; }
         public byte[] LogoCampaign { get; set; }
+        public Nullable<int> FocusNewAdmin { get; set; }
         public int idTown { get; set; }
         public int idUsers { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<focusNewAdmin_candidate> focusNewAdmin_candidate { get; set; }
         public virtual town town { get; set; }
         public virtual user user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

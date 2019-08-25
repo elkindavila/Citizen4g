@@ -15,7 +15,7 @@ namespace Citizen4g.Controllers
     [RoutePrefix("api/focus")]
     public class focusController : ApiController
     {
-        private db_citizen4Entities1 db = new db_citizen4Entities1();
+        private db_citizen4Entities2 db = new db_citizen4Entities2();
 
         // GET: api/focus
         [Route("")]

@@ -155,9 +155,6 @@
     <Compile Include="Models\candidate.cs">
       <DependentUpon>CitizenModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\category.cs">
-      <DependentUpon>CitizenModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\citizen4.cs">
       <DependentUpon>CitizenModel.tt</DependentUpon>
     </Compile>
@@ -176,7 +173,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CitizenModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\CivilStatu.cs">
+      <DependentUpon>CitizenModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EconomicActivity.cs">
+      <DependentUpon>CitizenModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EducationLevel.cs">
+      <DependentUpon>CitizenModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\focus.cs">
+      <DependentUpon>CitizenModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FocusNewAdmin.cs">
+      <DependentUpon>CitizenModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\focusNewAdmin_candidate.cs">
       <DependentUpon>CitizenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\focus_citizen4.cs">
@@ -201,6 +213,9 @@
       <DependentUpon>CitizenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\town.cs">
+      <DependentUpon>CitizenModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TypeTrasnport.cs">
       <DependentUpon>CitizenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user.cs">

@@ -17,6 +17,7 @@ namespace Citizen4g.Models
         public int idFocus_Citizen4col { get; set; }
         public int idFocus { get; set; }
         public int idCitizen4 { get; set; }
+        public string DescriptionAdd { get; set; }
     
         public virtual citizen4 citizen4 { get; set; }
         public virtual focus focus { get; set; }

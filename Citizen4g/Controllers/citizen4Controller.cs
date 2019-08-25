@@ -15,7 +15,7 @@ namespace Citizen4g.Controllers
     [RoutePrefix("api/citizen4")]
     public class citizen4Controller : ApiController
     {
-        private db_citizen4Entities1 db = new db_citizen4Entities1();
+        private db_citizen4Entities2 db = new db_citizen4Entities2();
 
         // GET: api/citizen4
         [Route("")]
@@ -59,30 +59,52 @@ namespace Citizen4g.Controllers
                 newUser.FullName = citizen4.FullName;
                 newUser.Age = citizen4.Age;
 
-                if (citizen4.Age <=18)
+                if (citizen4.Age <=0)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Edad debe ser igual o mayor de 18 años");
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Ingrese una edad valida");
 
                 }
 
+                newUser.FullName = citizen4.FullName;
+                newUser.Age = citizen4.Age;
                 newUser.Adress = citizen4.Adress;
                 newUser.Gender = citizen4.Gender;
                 newUser.CellPhone = citizen4.CellPhone;
                 newUser.Phone = citizen4.Phone;
                 newUser.Email = citizen4.Email;
-                newUser.EconomicActivity = citizen4.EconomicActivity;
-                newUser.EducationLevel = citizen4.EducationLevel;
+                newUser.economicActivity = citizen4.economicActivity;
+                newUser.educationLevel = citizen4.educationLevel;
                 newUser.HeadFamily = citizen4.HeadFamily;
                 newUser.EmployeedNow = citizen4.EmployeedNow;
                 newUser.WageLevel = citizen4.WageLevel;
-                newUser.Profession = citizen4.Profession;
                 newUser.TypeTransportUse = citizen4.TypeTransportUse;
+                newUser.Profession = citizen4.Profession;
                 newUser.WorkEast = citizen4.WorkEast;
+                newUser.CivilStatus = citizen4.CivilStatus;
+
+                var sector = db.sectors.Where(x => x.idTown == citizen4.idTown);
+
+                if (sector == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El sector debe corresponder al municipio seleccionado");
+                }
+                else
+                {
+                    newUser.idSector = citizen4.idSector;
+                }
+
+                
                 newUser.idTown = citizen4.idTown;
 
-                if (citizen4.idTown == 0)
+                var town = db.towns.Where(x => x.idTown == citizen4.idTown);
+
+                if (town == null)
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Se requiere id valido para un municipio!");
+                }
+                else
+                {
+                    newUser.idTown = citizen4.idTown;
                 }
                 
 
@@ -91,7 +113,7 @@ namespace Citizen4g.Controllers
                 db.SaveChanges();
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
-            catch
+            catch (Exception ex)
             {
 
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
@@ -120,26 +142,42 @@ namespace Citizen4g.Controllers
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El ciudaddado debe elegir a un candidato!");
                 }
 
-                citizen4.idUsers = registroMasActualizado.idUsers;
+                var sector = db.sectors.Where(x => x.idTown == citizen4.idTown && x.idSector == citizen4.idSector).FirstOrDefault();
 
-                if (citizen4.idTown == 0)
+                if (sector == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El sector debe corresponder al municipio seleccionado");
+                }
+                else
+                {
+                   citizen4.idSector= citizen4.idSector;
+                }
+
+                var town = db.towns.Where(x => x.idTown == citizen4.idTown).FirstOrDefault();
+
+                if (town == null)
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Se requiere id valido para un municipio!");
                 }
-
-                if (citizen4.Age <= 18)
+                else
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Edad debe ser igual o mayor de 18 años");
+                   citizen4.idTown= citizen4.idTown;
                 }
 
+                if (citizen4.Age <= 0)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Ingrese una edad valida");
+                }
+
+
+                citizen4.idUsers = registroMasActualizado.idUsers;
 
                 db.citizen4.Add(citizen4);
                 db.SaveChanges();
                 return new HttpResponseMessage(HttpStatusCode.OK); ;
             }
-            catch
+            catch(Exception ex)
             {
-
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
