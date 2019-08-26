@@ -140,7 +140,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\candidatesController.cs" />
     <Compile Include="Controllers\citizen4Controller.cs" />
+    <Compile Include="Controllers\CivilStatusController.cs" />
+    <Compile Include="Controllers\EconomicActivitiesController.cs" />
+    <Compile Include="Controllers\EducationLevelsController.cs" />
     <Compile Include="Controllers\focusController.cs" />
+    <Compile Include="Controllers\FocusNewAdminsController.cs" />
+    <Compile Include="Controllers\focusNewAdmin_candidateController.cs" />
     <Compile Include="Controllers\focus_citizen4Controller.cs" />
     <Compile Include="Controllers\messageController.cs" />
     <Compile Include="Controllers\messagetypesController.cs" />
@@ -148,6 +153,7 @@
     <Compile Include="Controllers\needs_citizen4Controller.cs" />
     <Compile Include="Controllers\sectorsController.cs" />
     <Compile Include="Controllers\townsController.cs" />
+    <Compile Include="Controllers\TypeTrasnportsController.cs" />
     <Compile Include="Controllers\usersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

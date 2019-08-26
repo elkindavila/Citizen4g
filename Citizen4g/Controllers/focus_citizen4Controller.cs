@@ -67,7 +67,7 @@ namespace Citizen4g.Controllers
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Codigo id focus_citizen No existe : " + focus.idCitizen4);
                 }
 
-                newFocus.idFocus_Citizen4col = focus.idFocus_Citizen4col;
+                newFocus.idFocus_Citizen4col = newFocus.idFocus_Citizen4col;
                 newFocus.idFocus = focus.idFocus;
                 newFocus.idCitizen4 = focus.idCitizen4;
                
