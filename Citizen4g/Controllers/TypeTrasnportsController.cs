@@ -12,11 +12,13 @@ using Citizen4g.Models;
 
 namespace Citizen4g.Controllers
 {
+    [RoutePrefix("api/typetransport")]
     public class TypeTrasnportsController : ApiController
     {
         private db_citizen4Entities2 db = new db_citizen4Entities2();
 
         // GET: api/TypeTrasnports
+        [Route("")]
         public IQueryable<TypeTrasnport> GetTypeTrasnports()
         {
             return db.TypeTrasnports;
@@ -24,6 +26,7 @@ namespace Citizen4g.Controllers
 
         // GET: api/TypeTrasnports/5
         [ResponseType(typeof(TypeTrasnport))]
+        [Route("{id:int}")]
         public IHttpActionResult GetTypeTrasnport(int id)
         {
             TypeTrasnport typeTrasnport = db.TypeTrasnports.Find(id);

@@ -12,11 +12,13 @@ using Citizen4g.Models;
 
 namespace Citizen4g.Controllers
 {
+    [RoutePrefix("api/economicactivities")]
     public class EconomicActivitiesController : ApiController
     {
         private db_citizen4Entities2 db = new db_citizen4Entities2();
 
         // GET: api/EconomicActivities
+        [Route("")]
         public IQueryable<EconomicActivity> GetEconomicActivities()
         {
             return db.EconomicActivities;
@@ -24,6 +26,7 @@ namespace Citizen4g.Controllers
 
         // GET: api/EconomicActivities/5
         [ResponseType(typeof(EconomicActivity))]
+        [Route("{id:int}")]
         public IHttpActionResult GetEconomicActivity(int id)
         {
             EconomicActivity economicActivity = db.EconomicActivities.Find(id);

@@ -12,11 +12,13 @@ using Citizen4g.Models;
 
 namespace Citizen4g.Controllers
 {
+    [RoutePrefix("api/focusnewadmincandidates")]
     public class focusNewAdmin_candidateController : ApiController
     {
         private db_citizen4Entities2 db = new db_citizen4Entities2();
 
         // GET: api/focusNewAdmin_candidate
+        [Route("")]
         public IQueryable<focusNewAdmin_candidate> GetfocusNewAdmin_candidate()
         {
             return db.focusNewAdmin_candidate;
@@ -24,6 +26,7 @@ namespace Citizen4g.Controllers
 
         // GET: api/focusNewAdmin_candidate/5
         [ResponseType(typeof(focusNewAdmin_candidate))]
+        [Route("{id:int}")]
         public IHttpActionResult GetfocusNewAdmin_candidate(int id)
         {
             focusNewAdmin_candidate focusNewAdmin_candidate = db.focusNewAdmin_candidate.Find(id);

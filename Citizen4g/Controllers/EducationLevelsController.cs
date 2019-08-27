@@ -12,11 +12,13 @@ using Citizen4g.Models;
 
 namespace Citizen4g.Controllers
 {
+    [RoutePrefix("api/educationlevels")]
     public class EducationLevelsController : ApiController
     {
         private db_citizen4Entities2 db = new db_citizen4Entities2();
 
         // GET: api/EducationLevels
+        [Route("")]
         public IQueryable<EducationLevel> GetEducationLevels()
         {
             return db.EducationLevels;
@@ -24,6 +26,7 @@ namespace Citizen4g.Controllers
 
         // GET: api/EducationLevels/5
         [ResponseType(typeof(EducationLevel))]
+        [Route("{id:int}")]
         public IHttpActionResult GetEducationLevel(int id)
         {
             EducationLevel educationLevel = db.EducationLevels.Find(id);
