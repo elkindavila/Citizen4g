@@ -69,6 +69,15 @@
           <Property Name="idEducationLevel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="files">
+          <Key>
+            <PropertyRef Name="idFiles" />
+          </Key>
+          <Property Name="idFiles" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCandidate" Type="int" Nullable="false" />
+          <Property Name="FileBin" Type="mediumblob" />
+          <Property Name="Size" Type="varchar" MaxLength="45" />
+        </EntityType>
         <EntityType Name="focus">
           <Key>
             <PropertyRef Name="idFocus" />
@@ -443,6 +452,7 @@
           <EntitySet Name="CivilStatus" EntityType="Self.CivilStatus" Schema="db_citizen4" store:Type="Tables" />
           <EntitySet Name="EconomicActivity" EntityType="Self.EconomicActivity" Schema="db_citizen4" store:Type="Tables" />
           <EntitySet Name="EducationLevel" EntityType="Self.EducationLevel" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="files" EntityType="Self.files" Schema="db_citizen4" store:Type="Tables" />
           <EntitySet Name="focus" EntityType="Self.focus" Schema="db_citizen4" store:Type="Tables" />
           <EntitySet Name="focus_citizen4" EntityType="Self.focus_citizen4" Schema="db_citizen4" store:Type="Tables" />
           <EntitySet Name="FocusNewAdmin" EntityType="Self.FocusNewAdmin" Schema="db_citizen4" store:Type="Tables" />
@@ -1124,7 +1134,17 @@
             <End Role="users" EntitySet="users" />
             <End Role="users_profiles" EntitySet="users_profiles" />
           </AssociationSet>
+          <EntitySet Name="files1" EntityType="db_citizen4Model.files" />
         </EntityContainer>
+        <EntityType Name="files">
+          <Key>
+            <PropertyRef Name="idFiles" />
+          </Key>
+          <Property Name="idFiles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCandidate" Type="Int32" Nullable="false" />
+          <Property Name="FileBin" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Size" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1327,6 +1347,16 @@
                 <ScalarProperty Name="idUsers_Profiles" ColumnName="idUsers_Profiles" />
                 <ScalarProperty Name="idUsers" ColumnName="idUsers" />
                 <ScalarProperty Name="idProfiles" ColumnName="idProfiles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="files1">
+            <EntityTypeMapping TypeName="db_citizen4Model.files">
+              <MappingFragment StoreEntitySet="files">
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="FileBin" ColumnName="FileBin" />
+                <ScalarProperty Name="IdCandidate" ColumnName="IdCandidate" />
+                <ScalarProperty Name="idFiles" ColumnName="idFiles" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

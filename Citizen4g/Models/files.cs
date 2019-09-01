@@ -12,12 +12,11 @@ namespace Citizen4g.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sector
+    public partial class files
     {
-        public int idSector { get; set; }
-        public string NameSector { get; set; }
-        public int idTown { get; set; }
-    
-        public virtual town town { get; set; }
+        public int idFiles { get; set; }
+        public int IdCandidate { get; set; }
+        public byte[] FileBin { get; set; }
+        public string Size { get; set; }
     }
 }

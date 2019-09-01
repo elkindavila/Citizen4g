@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Citizen4g.Models;
@@ -189,6 +192,93 @@ namespace Citizen4g.Controllers
             }
         }
 
+
+        [HttpPost]
+        [Route("uploadFile")]
+       public async Task<string> uploadFile()
+        {
+
+            var ctx = HttpContext.Current;
+            var root = ctx.Server.MapPath("~/App_Data");
+            var provider = new MultipartFormDataStreamProvider(root);
+
+            try
+            {
+                await Request.Content
+                    .ReadAsMultipartAsync(provider);
+
+                foreach (var file in provider.FileData)
+                {
+                    var name = file.Headers.ContentDisposition.FileName;
+
+                    //remove double quotes from string
+                    name = name.Trim('"');
+
+                    var localFileName = file.LocalFileName;
+                    var filePath = Path.Combine(root,name);
+
+                    //File.Move(localFileName,filePath);
+                    //SaveFile(localFileName, filePath);
+
+                    SaveFileBinary(localFileName, name);
+
+                }
+            }
+            catch (Exception e)
+            {
+
+                return $"Error: {e.Message}";
+            }
+
+
+            return "File uploaded!";
+        }
+
+        // GUARDA FILE BINARY
+        private void SaveFileBinary(string localFile, string fileName)
+        {
+            // Get file binary
+            byte[] fileBytes;
+            using(var fs = new FileStream(
+                localFile, FileMode.Open, FileAccess.Read))
+            {
+                fileBytes = new byte[fs.Length];
+                fs.Read(
+                    fileBytes, 0, Convert.ToInt32(fs.Length));
+            }
+
+            // Create a files object
+            var file = new candidate()
+            {
+                 Image = fileBytes
+            };
+
+            // Add and save it in database
+            db.candidates.Add(file);
+            db.SaveChanges();
+
+        }
+
+
+        // PERMITE GUARDAR LA RUTA DEL ARCHIVO (PATH)
+        //private void SaveFile(string localFile,string filePath)
+        //{
+        //    // Move fle to folder
+        //    //File.Move(localFile, filePath);
+
+        //    // Get file binary
+
+
+        //    // Create a File Location object
+        //    var fl = new candidate()
+        //    {
+        //        Image = filePath
+        //    };
+
+        //    //Add and save it in database
+        //    db.candidates.Add(fl);
+        //    db.SaveChanges();
+        //}
 
         // PUT: api/candidates/5
         [HttpPut]

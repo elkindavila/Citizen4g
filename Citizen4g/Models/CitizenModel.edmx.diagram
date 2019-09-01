@@ -45,6 +45,7 @@
         <AssociationConnector Association="db_citizen4Model.fk_Users_Profiles_Profiles1" ManuallyRouted="false" />
         <AssociationConnector Association="db_citizen4Model.fk_Sector_Town1" ManuallyRouted="false" />
         <AssociationConnector Association="db_citizen4Model.fk_Users_Profiles_Users1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="db_citizen4Model.files" Width="1.5" PointX="8.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
