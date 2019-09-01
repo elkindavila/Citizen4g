@@ -193,71 +193,71 @@ namespace Citizen4g.Controllers
         }
 
 
-        [HttpPost]
-        [Route("uploadFile")]
-       public async Task<string> uploadFile()
-        {
+       // [HttpPost]
+       // [Route("uploadFile")]
+       //public async Task<string> uploadFile()
+       // {
 
-            var ctx = HttpContext.Current;
-            var root = ctx.Server.MapPath("~/App_Data");
-            var provider = new MultipartFormDataStreamProvider(root);
+       //     var ctx = HttpContext.Current;
+       //     var root = ctx.Server.MapPath("~/App_Data");
+       //     var provider = new MultipartFormDataStreamProvider(root);
 
-            try
-            {
-                await Request.Content
-                    .ReadAsMultipartAsync(provider);
+       //     try
+       //     {
+       //         await Request.Content
+       //             .ReadAsMultipartAsync(provider);
 
-                foreach (var file in provider.FileData)
-                {
-                    var name = file.Headers.ContentDisposition.FileName;
+       //         foreach (var file in provider.FileData)
+       //         {
+       //             var name = file.Headers.ContentDisposition.FileName;
 
-                    //remove double quotes from string
-                    name = name.Trim('"');
+       //             //remove double quotes from string
+       //             name = name.Trim('"');
 
-                    var localFileName = file.LocalFileName;
-                    var filePath = Path.Combine(root,name);
+       //             var localFileName = file.LocalFileName;
+       //             var filePath = Path.Combine(root,name);
 
-                    //File.Move(localFileName,filePath);
-                    //SaveFile(localFileName, filePath);
+       //             //File.Move(localFileName,filePath);
+       //             //SaveFile(localFileName, filePath);
 
-                    SaveFileBinary(localFileName, name);
+       //             SaveFileBinary(localFileName, name);
 
-                }
-            }
-            catch (Exception e)
-            {
+       //         }
+       //     }
+       //     catch (Exception e)
+       //     {
 
-                return $"Error: {e.Message}";
-            }
+       //         return $"Error: {e.Message}";
+       //     }
 
 
-            return "File uploaded!";
-        }
+       //     return "File uploaded!";
+       // }
 
-        // GUARDA FILE BINARY
-        private void SaveFileBinary(string localFile, string fileName)
-        {
-            // Get file binary
-            byte[] fileBytes;
-            using(var fs = new FileStream(
-                localFile, FileMode.Open, FileAccess.Read))
-            {
-                fileBytes = new byte[fs.Length];
-                fs.Read(
-                    fileBytes, 0, Convert.ToInt32(fs.Length));
-            }
+       // // GUARDA FILE BINARY
+       // private void SaveFileBinary(string localFile, string fileName)
+       // {
+       //     // Get file binary
+       //     byte[] fileBytes;
+       //     using(var fs = new FileStream(
+       //         localFile, FileMode.Open, FileAccess.Read))
+       //     {
+       //         fileBytes = new byte[fs.Length];
+       //         fs.Read(
+       //             fileBytes, 0, Convert.ToInt32(fs.Length));
+       //     }
 
-            // Create a files object
-            var file = new candidate()
-            {
-                 Image = fileBytes
-            };
+       //     // Create a files object
+       //     var file = new candidate()
+       //     {
+       //          Image = fileBytes
+       //     };
 
-            // Add and save it in database
-            db.candidates.Add(file);
-            db.SaveChanges();
+       //     // Add and save it in database
+       //     db.candidates.Add(file);
+       //     db.SaveChanges();
 
-        }
+       // }
 
 
         // PERMITE GUARDAR LA RUTA DEL ARCHIVO (PATH)
