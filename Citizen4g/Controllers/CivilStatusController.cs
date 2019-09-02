@@ -20,9 +20,9 @@ namespace Citizen4g.Controllers
 
         // GET: api/CivilStatus
         [Route("")]
-        public IQueryable<CivilStatu> GetCivilStatus()
+        public IEnumerable<CivilStatu> GetCivilStatus()
         {
-            return db.CivilStatus;
+            return db.CivilStatus.ToList();
         }
 
         // GET: api/CivilStatus/5

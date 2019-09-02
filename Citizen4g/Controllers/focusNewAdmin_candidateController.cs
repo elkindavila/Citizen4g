@@ -19,9 +19,9 @@ namespace Citizen4g.Controllers
 
         // GET: api/focusNewAdmin_candidate
         [Route("")]
-        public IQueryable<focusNewAdmin_candidate> GetfocusNewAdmin_candidate()
+        public IEnumerable<focusNewAdmin_candidate> GetfocusNewAdmin_candidate()
         {
-            return db.focusNewAdmin_candidate;
+            return db.focusNewAdmin_candidate.ToList();
         }
 
         // GET: api/focusNewAdmin_candidate/5

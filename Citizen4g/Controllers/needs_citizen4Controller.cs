@@ -57,13 +57,13 @@ namespace Citizen4g.Controllers
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Id citizen No esta registrado: " + need.idCitizen4);
                 }
 
-                if (validarNeed == null)
+                else if (validarNeed == null)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Necesidad no Registrada: ");
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Necesidad no existe en la tabla maestra needs");
                 }
 
 
-                if (newNeed == null)
+                else if (newNeed == null)
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Codigo id Needs_citizen No existe : " + need.idNeeds_Citizen4);
                 }
@@ -75,7 +75,7 @@ namespace Citizen4g.Controllers
                 db.SaveChanges();
                 return result;
             }
-            catch
+            catch (Exception ex)
             {
 
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
@@ -91,8 +91,6 @@ namespace Citizen4g.Controllers
 
             citizen4 validarCitizen = db.citizen4.Where(x => x.idCitizen4 == need.idCitizen4).FirstOrDefault();
             need validarNeed = db.needs.Where(x => x.idNeeds == need.idNeeds).FirstOrDefault();
-
-            var focusci = db.needs_citizen4.Where(x => x.idCitizen4 == need.idCitizen4 && x.idNeeds == need.idNeeds).FirstOrDefault();
             
 
             if (validarCitizen == null)
@@ -100,21 +98,14 @@ namespace Citizen4g.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Id citizen No esta registrado: " + need.idCitizen4);
             }
 
-            if (validarNeed == null)
+            else if (validarNeed == null)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Necesidad no Registrada: ");
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Necesidad no existe en la tabla maestra needs");
             }
-
-
-            if (focusci == null)
-            {
+       
                 db.needs_citizen4.Add(need);
                 db.SaveChanges();
                 return new HttpResponseMessage(HttpStatusCode.OK + need.idCitizen4 + need.idNeeds);
-
-            }
-            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Necesidad ya registra para el ID de ciudadano: " + need.idCitizen4);
-
 
         }
 

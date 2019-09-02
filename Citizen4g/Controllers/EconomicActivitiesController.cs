@@ -19,9 +19,9 @@ namespace Citizen4g.Controllers
 
         // GET: api/EconomicActivities
         [Route("")]
-        public IQueryable<EconomicActivity> GetEconomicActivities()
+        public IEnumerable<EconomicActivity> GetEconomicActivities()
         {
-            return db.EconomicActivities;
+            return db.EconomicActivities.ToList();
         }
 
         // GET: api/EconomicActivities/5

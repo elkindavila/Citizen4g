@@ -19,9 +19,9 @@ namespace Citizen4g.Controllers
 
         // GET: api/TypeTrasnports
         [Route("")]
-        public IQueryable<TypeTrasnport> GetTypeTrasnports()
+        public IEnumerable<TypeTrasnport> GetTypeTrasnports()
         {
-            return db.TypeTrasnports;
+            return db.TypeTrasnports.ToList();
         }
 
         // GET: api/TypeTrasnports/5

@@ -57,12 +57,12 @@ namespace Citizen4g.Controllers
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Id citizen No esta registrado: " + focus.idCitizen4);
                 }
 
-                if (validarFocus == null)
+                else if (validarFocus == null)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Id de Prioridad no Registrada: ");
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Id de Prioridad no Registra en tabla maestra focus");
                 }
 
-                if (newFocus == null)
+                else if (newFocus == null)
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Codigo id focus_citizen No existe : " + focus.idCitizen4);
                 }
@@ -87,32 +87,22 @@ namespace Citizen4g.Controllers
         public HttpResponseMessage Create([FromBody]focus_citizen4 focus)
         {
 
-           
-
             citizen4 validarCitizen = db.citizen4.Where(x => x.idCitizen4 == focus.idCitizen4).FirstOrDefault();
             focus validarFocus = db.foci.Where(x=> x.idFocus == focus.idFocus).FirstOrDefault();
-
-            var focusci = db.focus_citizen4.Where(x=> x.idFocus == focus.idFocus && x.idCitizen4 == focus.idCitizen4).FirstOrDefault();
 
             if (validarCitizen == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Id citizen No esta registrado: " + focus.idCitizen4);
             }
 
-            if (validarFocus == null)
+            else if (validarFocus == null)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Prioridad no Registrada: ");
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Prioridad no Registra en tabla maestra focus: ");
             }
 
-            if (focusci == null )
-                {
                 db.focus_citizen4.Add(focus);
                 db.SaveChanges();
                 return new HttpResponseMessage(HttpStatusCode.OK);
-                
-                }
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Prioridad ya registra para el ID de ciudadano: " + focus.idCitizen4);
-            
 
         }
 

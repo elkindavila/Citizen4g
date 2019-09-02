@@ -17,13 +17,13 @@ namespace Citizen4g.Controllers
 {
 
     //comment to push
-    [RoutePrefix("api/towns")]                  //ADD of new
+    [RoutePrefix("api/towns")]                  
     public class townsController : ApiController
     {
         private db_citizen4Entities2 db = new db_citizen4Entities2();
 
         // GET: api/towns
-        [Route("")]                            //ADD of new
+        [Route("")]                            
         public IEnumerable<town> Gettowns()
         {
             return db.towns.ToList();        //Cambiar ToArray por ToList
@@ -34,7 +34,7 @@ namespace Citizen4g.Controllers
         //GET: api/towns/5
 
         [ResponseType(typeof(town))]
-        [Route("{id:int}")]                                  //ADD of new
+        [Route("{id:int}")]                                  
         public IHttpActionResult Gettown(int id)
         {
             town town = db.towns.Find(id);

@@ -19,9 +19,9 @@ namespace Citizen4g.Controllers
 
         // GET: api/EducationLevels
         [Route("")]
-        public IQueryable<EducationLevel> GetEducationLevels()
+        public IEnumerable<EducationLevel> GetEducationLevels()
         {
-            return db.EducationLevels;
+            return db.EducationLevels.ToList();
         }
 
         // GET: api/EducationLevels/5

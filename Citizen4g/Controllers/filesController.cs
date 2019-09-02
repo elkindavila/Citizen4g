@@ -22,9 +22,9 @@ namespace Citizen4g.Controllers
 
         // GET: api/files
         [Route("")]
-        public IQueryable<files> Getfiles1()
+        public IEnumerable<files> Getfiles1()
         {
-            return db.files1;
+            return db.files1.ToList();
         }
 
         // GET: api/files/5
