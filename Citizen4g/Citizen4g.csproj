@@ -156,6 +156,8 @@
     <Compile Include="Controllers\townsController.cs" />
     <Compile Include="Controllers\TypeTrasnportsController.cs" />
     <Compile Include="Controllers\usersController.cs" />
+    <Compile Include="DTO\CandidatoDto.cs" />
+    <Compile Include="DTO\CiudadanosDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

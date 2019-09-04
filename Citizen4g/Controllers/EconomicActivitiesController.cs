@@ -12,7 +12,7 @@ using Citizen4g.Models;
 
 namespace Citizen4g.Controllers
 {
-    [RoutePrefix("api/economicactivities")]
+    [RoutePrefix("api/economicactivity")]
     public class EconomicActivitiesController : ApiController
     {
         private db_citizen4Entities2 db = new db_citizen4Entities2();

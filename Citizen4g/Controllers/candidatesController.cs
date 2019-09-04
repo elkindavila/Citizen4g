@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Citizen4g.DTO;
 using Citizen4g.Models;
 
 namespace Citizen4g.Controllers
@@ -58,6 +59,79 @@ namespace Citizen4g.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("citizensXcandidate/{idcandidate}")]
+        public IEnumerable<CandidatoDto> GetcitizensXcandidate(int idcandidate)
+        {
+            try
+            {
+                    var CiuxCandidates = db
+                            .candidates
+                            .Where(t => t.idCandidates == idcandidate)
+                            .Include("Citizen4")
+                            .Select(t => new CandidatoDto
+                            {
+                                idCandidates = t.idCandidates,
+                                idCard = t.idCard,
+                                FullName = t.FullName,
+                                Email = t.Email,
+                                Image = t.Image,
+                                Description = t.Description,
+                                DescriptionCampaign = t.DescriptionCampaign,
+                                LinkCampaign = t.LinkCampaign,
+                                idTown = t.idTown,
+                                idUsers = t.idUsers,
+                                CitizensxCandidate = t.citizen4.Select(p => new CiudadanosDto
+                                {
+                                    idCitizen4 = p.idCitizen4,
+                                    FullName = p.FullName,
+                                    Age = p.Age,
+                                    Adress = p.Adress,
+                                    Gender = p.Gender,
+                                    CellPhone = p.CellPhone,
+                                    Phone = p.Phone,
+                                    Email = p.Email,
+                                    economicActivity = p.economicActivity,
+                                    educationLevel = p.educationLevel,
+                                    HeadFamily = p.HeadFamily,
+                                    EmployeedNow = p.EmployeedNow,
+                                    WageLevel = p.WageLevel,
+                                    TypeTransportUse = p.TypeTransportUse,
+                                    Profession = p.Profession,
+                                    WorkEast = p.WorkEast,
+                                    CivilStatus = p.CivilStatus,
+                                    idTown = p.idTown,
+                                    idSector = p.idSector,
+                                    idUsers = p.idUsers,
+                                    idCandidates = p.idCandidates
+
+                                })
+                            }).ToList();
+                    return CiuxCandidates;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }          
+                         
+    }
+
+        [HttpGet]
+        [Route("Estadisticas/{idcandidate}")]
+        public IEnumerable<CiudadanosDto> estadisticas(int idcandidate)
+        {
+
+
+            var edad = (from c in db.citizen4
+                        where c.idCandidates == idcandidate
+                        group new CiudadanosDto { FullName = c.CellPhone }
+                        by c.Age into edades
+                        select edades).First();
+
+            return edad;
+
+        }
 
         [HttpGet]
         [ResponseType(typeof(candidate))]
