@@ -65,57 +65,57 @@ namespace Citizen4g.Controllers
         {
             try
             {
-                    var CiuxCandidates = db
-                            .candidates
-                            .Where(t => t.idCandidates == idcandidate)
-                            .Include("Citizen4")
-                            .Select(t => new CandidatoDto
+                var CiuxCandidates = db
+                        .candidates
+                        .Where(t => t.idCandidates == idcandidate)
+                        .Include("Citizen4")
+                        .Select(t => new CandidatoDto
+                        {
+                            idCandidates = t.idCandidates,
+                            idCard = t.idCard,
+                            FullName = t.FullName,
+                            Email = t.Email,
+                            Image = t.Image,
+                            Description = t.Description,
+                            DescriptionCampaign = t.DescriptionCampaign,
+                            LinkCampaign = t.LinkCampaign,
+                            idTown = t.idTown,
+                            idUsers = t.idUsers,
+                            CitizensxCandidate = t.citizen4.Select(p => new CiudadanosDto
                             {
-                                idCandidates = t.idCandidates,
-                                idCard = t.idCard,
-                                FullName = t.FullName,
-                                Email = t.Email,
-                                Image = t.Image,
-                                Description = t.Description,
-                                DescriptionCampaign = t.DescriptionCampaign,
-                                LinkCampaign = t.LinkCampaign,
-                                idTown = t.idTown,
-                                idUsers = t.idUsers,
-                                CitizensxCandidate = t.citizen4.Select(p => new CiudadanosDto
-                                {
-                                    idCitizen4 = p.idCitizen4,
-                                    FullName = p.FullName,
-                                    Age = p.Age,
-                                    Adress = p.Adress,
-                                    Gender = p.Gender,
-                                    CellPhone = p.CellPhone,
-                                    Phone = p.Phone,
-                                    Email = p.Email,
-                                    economicActivity = p.economicActivity,
-                                    educationLevel = p.educationLevel,
-                                    HeadFamily = p.HeadFamily,
-                                    EmployeedNow = p.EmployeedNow,
-                                    WageLevel = p.WageLevel,
-                                    TypeTransportUse = p.TypeTransportUse,
-                                    Profession = p.Profession,
-                                    WorkEast = p.WorkEast,
-                                    CivilStatus = p.CivilStatus,
-                                    idTown = p.idTown,
-                                    idSector = p.idSector,
-                                    idUsers = p.idUsers,
-                                    idCandidates = p.idCandidates
+                                idCitizen4 = p.idCitizen4,
+                                FullName = p.FullName,
+                                Age = p.Age,
+                                Adress = p.Adress,
+                                Gender = p.Gender,
+                                CellPhone = p.CellPhone,
+                                Phone = p.Phone,
+                                Email = p.Email,
+                                economicActivity = p.economicActivity,
+                                educationLevel = p.educationLevel,
+                                HeadFamily = p.HeadFamily,
+                                EmployeedNow = p.EmployeedNow,
+                                WageLevel = p.WageLevel,
+                                TypeTransportUse = p.TypeTransportUse,
+                                Profession = p.Profession,
+                                WorkEast = p.WorkEast,
+                                CivilStatus = p.CivilStatus,
+                                idTown = p.idTown,
+                                idSector = p.idSector,
+                                idUsers = p.idUsers,
+                                idCandidates = p.idCandidates
 
-                                })
-                            }).ToList();
-                    return CiuxCandidates;
+                            })
+                        }).ToList();
+                return CiuxCandidates;
             }
             catch (Exception)
             {
 
                 throw;
-            }          
-                         
-    }
+            }
+
+        }
 
         [HttpGet]
         [Route("Estadisticas/{idcandidate}")]
@@ -267,71 +267,71 @@ namespace Citizen4g.Controllers
         }
 
 
-       // [HttpPost]
-       // [Route("uploadFile")]
-       //public async Task<string> uploadFile()
-       // {
+        // [HttpPost]
+        // [Route("uploadFile")]
+        //public async Task<string> uploadFile()
+        // {
 
-       //     var ctx = HttpContext.Current;
-       //     var root = ctx.Server.MapPath("~/App_Data");
-       //     var provider = new MultipartFormDataStreamProvider(root);
+        //     var ctx = HttpContext.Current;
+        //     var root = ctx.Server.MapPath("~/App_Data");
+        //     var provider = new MultipartFormDataStreamProvider(root);
 
-       //     try
-       //     {
-       //         await Request.Content
-       //             .ReadAsMultipartAsync(provider);
+        //     try
+        //     {
+        //         await Request.Content
+        //             .ReadAsMultipartAsync(provider);
 
-       //         foreach (var file in provider.FileData)
-       //         {
-       //             var name = file.Headers.ContentDisposition.FileName;
+        //         foreach (var file in provider.FileData)
+        //         {
+        //             var name = file.Headers.ContentDisposition.FileName;
 
-       //             //remove double quotes from string
-       //             name = name.Trim('"');
+        //             //remove double quotes from string
+        //             name = name.Trim('"');
 
-       //             var localFileName = file.LocalFileName;
-       //             var filePath = Path.Combine(root,name);
+        //             var localFileName = file.LocalFileName;
+        //             var filePath = Path.Combine(root,name);
 
-       //             //File.Move(localFileName,filePath);
-       //             //SaveFile(localFileName, filePath);
+        //             //File.Move(localFileName,filePath);
+        //             //SaveFile(localFileName, filePath);
 
-       //             SaveFileBinary(localFileName, name);
+        //             SaveFileBinary(localFileName, name);
 
-       //         }
-       //     }
-       //     catch (Exception e)
-       //     {
+        //         }
+        //     }
+        //     catch (Exception e)
+        //     {
 
-       //         return $"Error: {e.Message}";
-       //     }
+        //         return $"Error: {e.Message}";
+        //     }
 
 
-       //     return "File uploaded!";
-       // }
+        //     return "File uploaded!";
+        // }
 
-       // // GUARDA FILE BINARY
-       // private void SaveFileBinary(string localFile, string fileName)
-       // {
-       //     // Get file binary
-       //     byte[] fileBytes;
-       //     using(var fs = new FileStream(
-       //         localFile, FileMode.Open, FileAccess.Read))
-       //     {
-       //         fileBytes = new byte[fs.Length];
-       //         fs.Read(
-       //             fileBytes, 0, Convert.ToInt32(fs.Length));
-       //     }
+        // // GUARDA FILE BINARY
+        // private void SaveFileBinary(string localFile, string fileName)
+        // {
+        //     // Get file binary
+        //     byte[] fileBytes;
+        //     using(var fs = new FileStream(
+        //         localFile, FileMode.Open, FileAccess.Read))
+        //     {
+        //         fileBytes = new byte[fs.Length];
+        //         fs.Read(
+        //             fileBytes, 0, Convert.ToInt32(fs.Length));
+        //     }
 
-       //     // Create a files object
-       //     var file = new candidate()
-       //     {
-       //          Image = fileBytes
-       //     };
+        //     // Create a files object
+        //     var file = new candidate()
+        //     {
+        //          Image = fileBytes
+        //     };
 
-       //     // Add and save it in database
-       //     db.candidates.Add(file);
-       //     db.SaveChanges();
+        //     // Add and save it in database
+        //     db.candidates.Add(file);
+        //     db.SaveChanges();
 
-       // }
+        // }
 
 
         // PERMITE GUARDAR LA RUTA DEL ARCHIVO (PATH)
@@ -374,7 +374,7 @@ namespace Citizen4g.Controllers
                 newUser.LogoCampaign = candidate.LogoCampaign;
                 newUser.idTown = candidate.idTown;
                 newUser.idUsers = candidate.idUsers;
-                
+
                 db.SaveChanges();
                 return result;
             }
@@ -435,20 +435,82 @@ namespace Citizen4g.Controllers
         // POST: api/candidates
         [HttpPost]
         [Route("create")]
-        public HttpResponseMessage Create([FromBody]candidate candidate)
+        public async Task<HttpResponseMessage> Create([FromBody]candidate candidate)
         {
             try
             {
+                byte[] fileBytes;
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
+                fileBytes = await uploadFile(candidate.idCandidates);
+                candidate.Image = fileBytes;
                 db.candidates.Add(candidate);
                 db.SaveChanges();
                 return result;
             }
             catch
             {
-
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
+        }
+
+        public async Task<byte[]> uploadFile(int idcandidate)
+        {
+            var ctx = HttpContext.Current;
+            var root = ctx.Server.MapPath("~/App_Data");
+            var provider = new MultipartFormDataStreamProvider(root);
+            byte[] fileBytes;
+            try
+            {
+                await Request.Content
+                    .ReadAsMultipartAsync(provider);
+
+                foreach (var file in provider.FileData)
+                {
+                    var name = file.Headers.ContentDisposition.FileName;
+
+                    //remove double quotes from string
+                    name = name.Trim('"');
+
+                    var localFileName = file.LocalFileName;
+                    var filePath = Path.Combine(root, name);
+
+                    fileBytes =  SaveFileBinary(localFileName, name, idcandidate);
+                    return fileBytes;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            return null;
+        }
+
+        // GUARDA FILE BINARY
+        private byte[] SaveFileBinary(string localFile, string fileName, int idcandidate)
+        {
+            // Get file binary
+            byte[] fileBytes;
+            using (var fs = new FileStream(
+                localFile, FileMode.Open, FileAccess.Read))
+            {
+                fileBytes = new byte[fs.Length];
+                fs.Read(
+                    fileBytes, 0, Convert.ToInt32(fs.Length));
+            }
+
+            // Create a files object
+            var file = new files()
+            {
+                IdCandidate = idcandidate,
+                FileBin = fileBytes,
+                Size = Convert.ToString(fileBytes.Length)
+
+            };
+
+            // Add and save it in database
+            db.files1.Add(file);
+            db.SaveChanges();
+            return fileBytes;
         }
 
         // DELETE: api/candidates/5
