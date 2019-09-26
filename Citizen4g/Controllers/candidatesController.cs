@@ -489,7 +489,6 @@ namespace Citizen4g.Controllers
                 fileBytes = await uploadFile(idcandidate);
                 var candidate = db.candidates.Single(c => c.idCandidates == idcandidate);
                 candidate.Image = fileBytes;
-                db.candidates.Add(candidate);
                 db.SaveChanges();
                 return result;
             }
