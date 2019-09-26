@@ -155,11 +155,16 @@ namespace Citizen4g.Controllers
                     else if (idEstadistica == 2)
                     {
                         //Numero de personas por rango de edades
-                        var edad = (from c in db.citizen4
-                                    group c by c.Age into edades
-                                    where edades.FirstOrDefault().idCandidates == idCandidate
-                                    select edades).FirstOrDefault();
-                        return Request.CreateResponse(HttpStatusCode.OK, edad);
+                        var groups = db.citizen4
+                                   .GroupBy(n => n.Age)
+                                   .Select(n => new
+                                   {
+                                       Edad = n.Key,
+                                       MetricCount = n.Count()
+                                   }
+                                   )
+                                   .OrderBy(n => n.Edad);
+                        return Request.CreateResponse(HttpStatusCode.OK, groups);
                     }
                     else if (idEstadistica == 3)
                     {
@@ -451,7 +456,7 @@ namespace Citizen4g.Controllers
         }
 
         // POST: api/candidates
-        [HttpPost]
+        [HttpPut]
         [Route("createimage/{idcandidate}")]
         public async Task<HttpResponseMessage> CreateImage(int idcandidate)
         {
@@ -467,7 +472,7 @@ namespace Citizen4g.Controllers
                 return result;
             }
             catch
-            {
+                {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
