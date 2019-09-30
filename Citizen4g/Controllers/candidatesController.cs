@@ -451,7 +451,7 @@ namespace Citizen4g.Controllers
         }
 
         // POST: api/candidates
-        [HttpPost]
+        [HttpPut]
         [Route("createimage/{idcandidate}")]
         public async Task<HttpResponseMessage> CreateImage(int idcandidate)
         {
@@ -462,11 +462,10 @@ namespace Citizen4g.Controllers
                 fileBytes = await uploadFile(idcandidate);
                 var candidate = db.candidates.Single(c => c.idCandidates == idcandidate);
                 candidate.Image = fileBytes;
-                db.candidates.Add(candidate);
                 db.SaveChanges();
                 return result;
             }
-            catch
+            catch (Exception e)
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }

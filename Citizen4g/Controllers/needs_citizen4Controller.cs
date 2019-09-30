@@ -105,7 +105,7 @@ namespace Citizen4g.Controllers
        
                 db.needs_citizen4.Add(need);
                 db.SaveChanges();
-                return new HttpResponseMessage(HttpStatusCode.OK + need.idCitizen4 + need.idNeeds);
+                return new HttpResponseMessage(HttpStatusCode.OK);
 
         }
 
