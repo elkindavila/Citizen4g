@@ -4,9 +4,12 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Citizen4g.Models;
@@ -127,6 +130,75 @@ namespace Citizen4g.Controllers
 
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
+        }
+
+        // POST: api/createimage
+        [HttpPut]
+        [Route("createimage/{idmessage}")]
+        public async Task<HttpResponseMessage> CreateImage(int idmessage)
+        {
+            try
+            {
+                byte[] fileBytes;
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                fileBytes = await uploadFile(idmessage);
+                var message = db.msg_citizen4_candidates.Single(c => c.idMessageCitizen4 == idmessage);
+                message.Image = fileBytes;
+                db.SaveChanges();
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+        }
+
+        public async Task<byte[]> uploadFile(int idmessage)
+        {
+            var ctx = HttpContext.Current;
+            var root = ctx.Server.MapPath("~/App_Data");
+            var provider = new MultipartFormDataStreamProvider(root);
+            byte[] fileBytes;
+            try
+            {
+                await Request.Content
+                    .ReadAsMultipartAsync(provider);
+
+                foreach (var file in provider.FileData)
+                {
+                    var name = file.Headers.ContentDisposition.FileName;
+
+                    //remove double quotes from string
+                    name = name.Trim('"');
+
+                    var localFileName = file.LocalFileName;
+                    var filePath = Path.Combine(root, name);
+
+                    fileBytes = SaveFileBinary(localFileName, name, idmessage);
+                    return fileBytes;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            return null;
+        }
+
+        // GUARDA FILE BINARY
+        private byte[] SaveFileBinary(string localFile, string fileName, int idmessage)
+        {
+            // Get file binary
+            byte[] fileBytes;
+            using (var fs = new FileStream(
+                localFile, FileMode.Open, FileAccess.Read))
+            {
+                fileBytes = new byte[fs.Length];
+                fs.Read(
+                    fileBytes, 0, Convert.ToInt32(fs.Length));
+            }
+
+            return fileBytes;
         }
 
 

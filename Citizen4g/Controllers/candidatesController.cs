@@ -146,85 +146,200 @@ namespace Citizen4g.Controllers
                     if (idEstadistica == 1)
                     {
                         // ciudadanos del candidato
-                        var cc = (from c in db.citizen4
-                                  join cn in db.candidates on c.idTown equals cn.idTown
-                                  where c.idCandidates == idCandidate
-                                  select cn).FirstOrDefault();
-                        return Request.CreateResponse(HttpStatusCode.OK, cc);
+                        var CiuxCandidates = db
+                        .candidates
+                        .Where(t => t.idCandidates == idCandidate)
+                        .Include("Citizen4")
+                        .Select(t => new CandidatoDto
+                        {
+                            idCandidates = t.idCandidates,
+                            idCard = t.idCard,
+                            FullName = t.FullName,
+                            Email = t.Email,
+                            Image = t.Image,
+                            Description = t.Description,
+                            DescriptionCampaign = t.DescriptionCampaign,
+                            LinkCampaign = t.LinkCampaign,
+                            idTown = t.idTown,
+                            idUsers = t.idUsers,
+                            CitizensxCandidate = t.citizen4.Select(p => new CiudadanosDto
+                            {
+                                idCitizen4 = p.idCitizen4,
+                                FullName = p.FullName,
+                                Age = p.Age,
+                                Adress = p.Adress,
+                                Gender = p.Gender,
+                                CellPhone = p.CellPhone,
+                                Phone = p.Phone,
+                                Email = p.Email,
+                                economicActivity = p.economicActivity,
+                                educationLevel = p.educationLevel,
+                                HeadFamily = p.HeadFamily,
+                                EmployeedNow = p.EmployeedNow,
+                                WageLevel = p.WageLevel,
+                                TypeTransportUse = p.TypeTransportUse,
+                                Profession = p.Profession,
+                                WorkEast = p.WorkEast,
+                                CivilStatus = p.CivilStatus,
+                                idTown = p.idTown,
+                                idSector = p.idSector,
+                                idUsers = p.idUsers,
+                                idCandidates = p.idCandidates
+
+                            })
+                        }).ToList();
+                        return Request.CreateResponse(HttpStatusCode.OK, CiuxCandidates);
                     }
                     else if (idEstadistica == 2)
                     {
                         //Numero de personas por rango de edades
-                        var edad = (from c in db.citizen4
-                                    group c by c.Age into edades
-                                    where edades.FirstOrDefault().idCandidates == idCandidate
-                                    select edades).FirstOrDefault();
-                        return Request.CreateResponse(HttpStatusCode.OK, edad);
+                        var groups = db.citizen4
+                             .Where(n => n.idCandidates == idCandidate)
+                                   .GroupBy(n => n.Age)
+                                   .Select(n => new
+                                   {
+                                       Edad = n.Key,
+                                       MetricCount = n.Count()
+                                   }
+                                   )
+                                   .OrderBy(n => n.Edad);
+                        return Request.CreateResponse(HttpStatusCode.OK, groups);
                     }
                     else if (idEstadistica == 3)
                     {
                         //#de personas por zonas (barrios veredas)
-                        var sector = (from c in db.citizen4
-                                      group c by c.idSector into sectores
-                                      where sectores.FirstOrDefault().idCandidates == idCandidate
-                                      select sectores).FirstOrDefault();
-                        return Request.CreateResponse(HttpStatusCode.OK, sector);
+                        var sectorxcityzen = db.citizen4
+                            .Where(n => n.idCandidates == idCandidate)
+                                  .GroupBy(n => n.idSector)
+                                  .Select(n => new
+                                  {
+                                      Sector = n.Key,
+                                      MetricCount = n.Count()
+                                  }
+                                  )
+                                  .OrderBy(n => n.Sector);
+
+                        var query = from sectorxcityzens in sectorxcityzen
+                                    join sectors in db.sectors on sectorxcityzens.Sector equals sectors.idSector
+                                    select new { Sector = sectors.NameSector, MetricCount = sectorxcityzens.MetricCount };
+
+                        return Request.CreateResponse(HttpStatusCode.OK, query);
                     }
                     else if (idEstadistica == 4)
                     {
 
                         //#de personas por nivel educativo
-                        var edu = (from c in db.citizen4
-                                   group c by c.educationLevel into leveledu
-                                   where leveledu.FirstOrDefault().idCandidates == idCandidate
-                                   select leveledu).FirstOrDefault();
-                        return Request.CreateResponse(HttpStatusCode.OK, edu);
+                        var educationLevelxcityzen = db.citizen4
+                            .Where(n => n.idCandidates == idCandidate)
+                                  .GroupBy(n => n.educationLevel)
+                                  .Select(n => new
+                                  {
+                                      EducationLevel = n.Key,
+                                      MetricCount = n.Count()
+                                  }
+                                  )
+                                  .OrderBy(n => n.EducationLevel);
+
+                        var query = from educationLevelxcityzens in educationLevelxcityzen
+                                    join educationLevels in db.EducationLevels on educationLevelxcityzens.EducationLevel equals educationLevels.idEducationLevel
+                                    select new { EducationLevels = educationLevels.Description, MetricCount = educationLevelxcityzens.MetricCount };
+
+                        return Request.CreateResponse(HttpStatusCode.OK, query);
                     }
                     else if (idEstadistica == 5)
                     {
                         // Personas por Actividad economica
-                        var act = (from c in db.citizen4
-                                   group c by c.economicActivity into EconomicAc
-                                   where EconomicAc.FirstOrDefault().idCandidates == idCandidate
-                                   select EconomicAc).FirstOrDefault();
-                        return Request.CreateResponse(HttpStatusCode.OK, act);
+                        var economicActivityxcityzen = db.citizen4
+                            .Where(n => n.idCandidates == idCandidate)
+                               .GroupBy(n => n.economicActivity)
+                               .Select(n => new
+                               {
+                                   EconomicActivity = n.Key,
+                                   MetricCount = n.Count()
+                               }
+                               )
+                               .OrderBy(n => n.EconomicActivity);
+
+                        var query = from economicActivityxcityzens in economicActivityxcityzen
+                                    join economicActivities in db.EconomicActivities on economicActivityxcityzens.EconomicActivity equals economicActivities.idEconomicActivity
+                                    select new { EconomicActivities = economicActivities.Description, MetricCount = economicActivityxcityzens.MetricCount };
+
+                        return Request.CreateResponse(HttpStatusCode.OK, query);
                     }
                     else if (idEstadistica == 6)
                     {
                         //Personas por Estado civil
-                        var est = (from c in db.citizen4
-                                   group c by c.CivilStatus into civilsta
-                                   where civilsta.FirstOrDefault().idCandidates == idCandidate
-                                   select civilsta).FirstOrDefault();
-                        return Request.CreateResponse(HttpStatusCode.OK, est);
+                        var civilStatusxcityzen = db.citizen4
+                                .Where(n => n.idCandidates == idCandidate)
+                                .GroupBy(n => n.CivilStatus)
+                                .Select(n => new
+                                {
+                                    CivilStatus = n.Key,
+                                    MetricCount = n.Count()
+                                }
+                                )
+                                .OrderBy(n => n.CivilStatus);
+
+                        var query = from civilStatusxcityzens in civilStatusxcityzen
+                                    join civilStatus in db.CivilStatus on civilStatusxcityzens.CivilStatus
+                                    equals civilStatus.idCivilStatus
+                                    select new { CivilStatus = civilStatus.Description, MetricCount = civilStatusxcityzens.MetricCount };
+
+                        return Request.CreateResponse(HttpStatusCode.OK, query);
                     }
                     else if (idEstadistica == 7)
                     {
                         //Personas Cabeza de familia
-                        var head = (from c in db.citizen4
-                                    group c by c.HeadFamily into headF
-                                    where headF.FirstOrDefault().idCandidates == idCandidate
-                                    select headF).FirstOrDefault();
-                        return Request.CreateResponse(HttpStatusCode.OK, head);
+                        var HeadFamilyxcityzen = db.citizen4
+                            .Where(n => n.idCandidates == idCandidate)
+                            .GroupBy(n => n.HeadFamily)
+                              .Select(n => new
+                              {
+                                  HeadFamily = n.Key,
+                                  MetricCount = n.Count()
+                              }
+                              )
+                              .OrderBy(n => n.HeadFamily);
+
+                        return Request.CreateResponse(HttpStatusCode.OK, HeadFamilyxcityzen);
                     }
                     else if (idEstadistica == 8)
                     {
                         //Empleados actualmente
-                        var empl = (from c in db.citizen4
-                                    group c by c.EmployeedNow into employed
-                                    where employed.FirstOrDefault().idCandidates == idCandidate
-                                    select employed).FirstOrDefault();
-                        return Request.CreateResponse(HttpStatusCode.OK, empl);
+                        var EmployeedNowxcityzen = db.citizen4
+                          .Where(n => n.idCandidates == idCandidate)
+                          .GroupBy(n => n.EmployeedNow)
+                            .Select(n => new
+                            {
+                                EmployeedNow = n.Key,
+                                MetricCount = n.Count()
+                            }
+                            )
+                            .OrderBy(n => n.EmployeedNow);
+
+                        return Request.CreateResponse(HttpStatusCode.OK, EmployeedNowxcityzen);
                     }
 
                     else if (idEstadistica == 9)
                     {
                         //personas por tipo de transporte
-                        var trs = (from c in db.citizen4
-                                   group c by c.TypeTransportUse into typet
-                                   where typet.FirstOrDefault().idCandidates == idCandidate
-                                   select typet).FirstOrDefault();
-                        return Request.CreateResponse(HttpStatusCode.OK, trs);
+                        var typeTransportUsexcityzen = db.citizen4
+                             .Where(n => n.idCandidates == idCandidate)
+                             .GroupBy(n => n.TypeTransportUse)
+                             .Select(n => new
+                             {
+                                 TypeTransportUse = n.Key,
+                                 MetricCount = n.Count()
+                             }
+                             )
+                             .OrderBy(n => n.TypeTransportUse);
+
+                        var query = from typeTransportUsexcityzens in typeTransportUsexcityzen
+                                    join typeTrasnports in db.TypeTrasnports on typeTransportUsexcityzens.TypeTransportUse
+                                    equals typeTrasnports.idTypeTrasnport
+                                    select new { TypeTrasnports = typeTrasnports.Description, MetricCount = typeTransportUsexcityzens.MetricCount };
+
+                        return Request.CreateResponse(HttpStatusCode.OK, query);
 
                     }
                     else if (idEstadistica == 10)
@@ -265,94 +380,6 @@ namespace Citizen4g.Controllers
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
-
-
-        // [HttpPost]
-        // [Route("uploadFile")]
-        //public async Task<string> uploadFile()
-        // {
-
-        //     var ctx = HttpContext.Current;
-        //     var root = ctx.Server.MapPath("~/App_Data");
-        //     var provider = new MultipartFormDataStreamProvider(root);
-
-        //     try
-        //     {
-        //         await Request.Content
-        //             .ReadAsMultipartAsync(provider);
-
-        //         foreach (var file in provider.FileData)
-        //         {
-        //             var name = file.Headers.ContentDisposition.FileName;
-
-        //             //remove double quotes from string
-        //             name = name.Trim('"');
-
-        //             var localFileName = file.LocalFileName;
-        //             var filePath = Path.Combine(root,name);
-
-        //             //File.Move(localFileName,filePath);
-        //             //SaveFile(localFileName, filePath);
-
-        //             SaveFileBinary(localFileName, name);
-
-        //         }
-        //     }
-        //     catch (Exception e)
-        //     {
-
-        //         return $"Error: {e.Message}";
-        //     }
-
-
-        //     return "File uploaded!";
-        // }
-
-        // // GUARDA FILE BINARY
-        // private void SaveFileBinary(string localFile, string fileName)
-        // {
-        //     // Get file binary
-        //     byte[] fileBytes;
-        //     using(var fs = new FileStream(
-        //         localFile, FileMode.Open, FileAccess.Read))
-        //     {
-        //         fileBytes = new byte[fs.Length];
-        //         fs.Read(
-        //             fileBytes, 0, Convert.ToInt32(fs.Length));
-        //     }
-
-        //     // Create a files object
-        //     var file = new candidate()
-        //     {
-        //          Image = fileBytes
-        //     };
-
-        //     // Add and save it in database
-        //     db.candidates.Add(file);
-        //     db.SaveChanges();
-
-        // }
-
-
-        // PERMITE GUARDAR LA RUTA DEL ARCHIVO (PATH)
-        //private void SaveFile(string localFile,string filePath)
-        //{
-        //    // Move fle to folder
-        //    //File.Move(localFile, filePath);
-
-        //    // Get file binary
-
-
-        //    // Create a File Location object
-        //    var fl = new candidate()
-        //    {
-        //        Image = filePath
-        //    };
-
-        //    //Add and save it in database
-        //    db.candidates.Add(fl);
-        //    db.SaveChanges();
-        //}
 
         // PUT: api/candidates/5
         [HttpPut]
@@ -465,8 +492,8 @@ namespace Citizen4g.Controllers
                 db.SaveChanges();
                 return result;
             }
-            catch (Exception e)
-            {
+            catch
+                {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
