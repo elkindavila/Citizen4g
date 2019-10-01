@@ -143,6 +143,7 @@
     <Compile Include="Controllers\CivilStatusController.cs" />
     <Compile Include="Controllers\EconomicActivitiesController.cs" />
     <Compile Include="Controllers\EducationLevelsController.cs" />
+    <Compile Include="Controllers\feedbacksController.cs" />
     <Compile Include="Controllers\filesController.cs" />
     <Compile Include="Controllers\focusController.cs" />
     <Compile Include="Controllers\FocusNewAdminsController.cs" />
@@ -189,6 +190,9 @@
       <DependentUpon>CitizenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EducationLevel.cs">
+      <DependentUpon>CitizenModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\feedback.cs">
       <DependentUpon>CitizenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\files.cs">

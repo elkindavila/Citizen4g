@@ -46,67 +46,129 @@ namespace Citizen4g.Controllers
         public HttpResponseMessage Update([FromBody]citizen4 citizen4)
         {
             try
-            {
-                
+            {   
                 var newUser = db.citizen4.Where(c => c.idCitizen4 == citizen4.idCitizen4).FirstOrDefault();
 
-                if (newUser == null)
-                {
+                if (newUser == null)                
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El id del ciudadano no existe! " + citizen4.idCitizen4);
-                }
-
+                else  
                 newUser.idCitizen4 = newUser.idCitizen4;
-                newUser.FullName = citizen4.FullName;
-                newUser.Age = citizen4.Age;
 
-                if (citizen4.Age <=0)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Ingrese una edad valida");
-
-                }
-
-                newUser.FullName = citizen4.FullName;
-                newUser.Age = citizen4.Age;
-                newUser.Adress = citizen4.Adress;
-                newUser.Gender = citizen4.Gender;
-                newUser.CellPhone = citizen4.CellPhone;
-                newUser.Phone = citizen4.Phone;
-                newUser.Email = citizen4.Email;
-                newUser.economicActivity = citizen4.economicActivity;
-                newUser.educationLevel = citizen4.educationLevel;
-                newUser.HeadFamily = citizen4.HeadFamily;
-                newUser.EmployeedNow = citizen4.EmployeedNow;
-                newUser.WageLevel = citizen4.WageLevel;
-                newUser.TypeTransportUse = citizen4.TypeTransportUse;
-                newUser.Profession = citizen4.Profession;
-                newUser.WorkEast = citizen4.WorkEast;
-                newUser.CivilStatus = citizen4.CivilStatus;
-
-                var sector = db.sectors.Where(x => x.idTown == citizen4.idTown);
-
-                if (sector == null)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El sector debe corresponder al municipio seleccionado");
-                }
+                if (citizen4.FullName == "" || citizen4.FullName == null)
+                    newUser.FullName = newUser.FullName;
                 else
-                {
-                    newUser.idSector = citizen4.idSector;
+                newUser.FullName = citizen4.FullName;
+
+                if (citizen4.Birthday == null)
+                    newUser.Birthday = newUser.Birthday;
+                else
+                newUser.Birthday = citizen4.Birthday;
+
+                // calcular edad
+                if(citizen4.Birthday != null) { 
+                DateTime fechanac = citizen4.Birthday.Value;
+                int anos = System.DateTime.Now.Year - fechanac.Year;
+                
+
+                if (anos <=0)                
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Verifique la fecha de nacimiento");
+                else
+                    newUser.Age = anos;
                 }
 
-                
-                newUser.idTown = citizen4.idTown;
+                if (citizen4.Adress == "" || citizen4.Adress == null)
+                    newUser.Adress = newUser.Adress;
+                else
+                    newUser.Adress = citizen4.Adress;
 
+                if (citizen4.Gender == "" || citizen4.Gender == null)
+                    newUser.Gender = newUser.Gender;
+                else
+                    newUser.Gender = citizen4.Gender;
+
+                if (citizen4.CellPhone == "" || citizen4.CellPhone == null)
+                    newUser.CellPhone = newUser.CellPhone;
+                else
+                    newUser.CellPhone = citizen4.CellPhone;
+
+                if (citizen4.Phone == "" || citizen4.Phone == null)
+                    newUser.Phone = newUser.Phone;
+                else
+                    newUser.Phone = citizen4.Phone;
+
+                if (citizen4.Email == "" || citizen4.Email == null)
+                    newUser.Email = newUser.Email;
+                else
+                    newUser.Email = citizen4.Email;
+
+                if (citizen4.economicActivity == null)
+                    newUser.economicActivity = newUser.economicActivity;
+                else
+                    newUser.economicActivity = citizen4.economicActivity;
+
+                if (citizen4.educationLevel == null)
+                    newUser.educationLevel = newUser.educationLevel;
+                else
+                    newUser.educationLevel = citizen4.educationLevel;
+
+                if (citizen4.HeadFamily == null)
+                    newUser.HeadFamily = newUser.HeadFamily;
+                else
+                    newUser.HeadFamily = citizen4.HeadFamily;
+
+                if (citizen4.EmployeedNow == null)
+                    newUser.EmployeedNow = newUser.EmployeedNow;
+                else
+                    newUser.EmployeedNow = citizen4.EmployeedNow;
+
+                if (citizen4.WageLevel == "" || citizen4.WageLevel == null)
+                    newUser.WageLevel = newUser.WageLevel;
+                else
+                    newUser.WageLevel = citizen4.WageLevel;
+
+                if (citizen4.TypeTransportUse == null)
+                    newUser.TypeTransportUse = newUser.TypeTransportUse;
+                else
+                    newUser.TypeTransportUse = citizen4.TypeTransportUse;
+
+                if (citizen4.Profession == "" || citizen4.Profession == null)
+                    newUser.Profession = newUser.Profession;
+                else
+                    newUser.Profession = citizen4.Profession;
+
+                if (citizen4.WorkEast == null)
+                    newUser.WorkEast = newUser.WorkEast;
+                else
+                    newUser.WorkEast = citizen4.WorkEast;
+
+                if (citizen4.CivilStatus == null)
+                    newUser.CivilStatus = newUser.CivilStatus;
+                else
+                    newUser.CivilStatus = citizen4.CivilStatus;
+
+                if (citizen4.idTown == 0)
+                    newUser.idTown = newUser.idTown;
+                else
+                { 
                 var town = db.towns.Where(x => x.idTown == citizen4.idTown);
 
                 if (town == null)
-                {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Se requiere id valido para un municipio!");
-                }
                 else
-                {
                     newUser.idTown = citizen4.idTown;
                 }
-                
+
+                if (citizen4.idSector == null)
+                    newUser.idSector = newUser.idSector;
+                else
+                { 
+                var sector = db.sectors.Where(x => x.idTown == citizen4.idTown);
+
+                if (sector == null)
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "El sector debe corresponder al municipio seleccionado");
+                else
+                    newUser.idSector = citizen4.idSector;
+                }
 
                 newUser.idUsers = newUser.idUsers;
                 newUser.idCandidates = newUser.idCandidates;
@@ -126,9 +188,14 @@ namespace Citizen4g.Controllers
         public HttpResponseMessage Create([FromBody]citizen4 citizen4)
         {
 
-            
+            // calcular edad
+            DateTime fechanac = citizen4.Birthday.Value;
+            int anos = System.DateTime.Now.Year - fechanac.Year;
+
             user registroMasActualizado = db.users.OrderByDescending(x => x.idUsers).First();
             var validar = db.citizen4.Where(x => x.idCandidates == citizen4.idCandidates && x.idUsers == registroMasActualizado.idUsers).FirstOrDefault();
+
+            
 
             try
             {
@@ -164,11 +231,10 @@ namespace Citizen4g.Controllers
                    citizen4.idTown= citizen4.idTown;
                 }
 
-                if (citizen4.Age <= 0)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Ingrese una edad valida");
-                }
-
+                if (anos <= 0)
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "edad debe ser mayor a 0 años");
+                else
+                    citizen4.Age = anos;
 
                 citizen4.idUsers = registroMasActualizado.idUsers;
 

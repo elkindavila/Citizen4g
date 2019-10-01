@@ -41,6 +41,23 @@ namespace Citizen4g.Controllers
             return Ok(files);
         }
 
+        [Route("IdCandidate")]
+        [ResponseType(typeof(files))]
+        public IHttpActionResult Getfilesid(int IdCandidate)
+        {
+            var files = db.files1.Where(x => x.IdCandidate == IdCandidate).Count();
+
+            if (files == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var files1 = db.files1.Where(x => x.IdCandidate == IdCandidate);
+                return Ok(files1);
+            }            
+           
+        }
 
         [HttpPost]
         [Route("uploadFile/{idcandidate}")]

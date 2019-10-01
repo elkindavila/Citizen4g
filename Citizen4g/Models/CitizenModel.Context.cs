@@ -45,5 +45,6 @@ namespace Citizen4g.Models
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<users_profiles> users_profiles { get; set; }
         public virtual DbSet<files> files1 { get; set; }
+        public virtual DbSet<feedback> feedbacks { get; set; }
     }
 }

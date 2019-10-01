@@ -43,6 +43,7 @@ namespace Citizen4g.Models
         public int idUsers { get; set; }
         public Nullable<int> idCandidates { get; set; }
         public Nullable<int> idSector { get; set; }
+        public Nullable<System.DateTime> Birthday { get; set; }
     
         public virtual candidate candidate { get; set; }
         public virtual town town { get; set; }

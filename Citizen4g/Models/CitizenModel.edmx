@@ -28,6 +28,7 @@
           </Key>
           <Property Name="idCitizen4" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Birthday" Type="date" />
           <Property Name="Age" Type="int" />
           <Property Name="Adress" Type="varchar" MaxLength="45" />
           <Property Name="Gender" Type="varchar" MaxLength="45" />
@@ -68,6 +69,16 @@
           </Key>
           <Property Name="idEducationLevel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="feedback">
+          <Key>
+            <PropertyRef Name="idfeedback" />
+          </Key>
+          <Property Name="idfeedback" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="100" />
+          <Property Name="idCitizen4" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="files">
           <Key>
@@ -452,6 +463,7 @@
           <EntitySet Name="CivilStatus" EntityType="Self.CivilStatus" Schema="db_citizen4" store:Type="Tables" />
           <EntitySet Name="EconomicActivity" EntityType="Self.EconomicActivity" Schema="db_citizen4" store:Type="Tables" />
           <EntitySet Name="EducationLevel" EntityType="Self.EducationLevel" Schema="db_citizen4" store:Type="Tables" />
+          <EntitySet Name="feedback" EntityType="Self.feedback" Schema="db_citizen4" store:Type="Tables" />
           <EntitySet Name="files" EntityType="Self.files" Schema="db_citizen4" store:Type="Tables" />
           <EntitySet Name="focus" EntityType="Self.focus" Schema="db_citizen4" store:Type="Tables" />
           <EntitySet Name="focus_citizen4" EntityType="Self.focus_citizen4" Schema="db_citizen4" store:Type="Tables" />
@@ -613,6 +625,7 @@
           <NavigationProperty Name="needs_citizen4" Relationship="Self.fk_Needs_Citizen4_Citizen41" FromRole="citizen4" ToRole="needs_citizen4" />
           <NavigationProperty Name="TypeTrasnport" Relationship="Self.fk_typeTransport" FromRole="citizen4" ToRole="TypeTrasnport" />
           <Property Name="idSector" Type="Int32" />
+          <Property Name="Birthday" Type="DateTime" />
         </EntityType>
         <EntityType Name="CivilStatu">
           <Key>
@@ -1135,6 +1148,7 @@
             <End Role="users_profiles" EntitySet="users_profiles" />
           </AssociationSet>
           <EntitySet Name="files1" EntityType="db_citizen4Model.files" />
+          <EntitySet Name="feedbacks" EntityType="db_citizen4Model.feedback" />
         </EntityContainer>
         <EntityType Name="files">
           <Key>
@@ -1144,6 +1158,16 @@
           <Property Name="IdCandidate" Type="Int32" Nullable="false" />
           <Property Name="FileBin" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Size" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="feedback">
+          <Key>
+            <PropertyRef Name="idfeedback" />
+          </Key>
+          <Property Name="idfeedback" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idCitizen4" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1172,6 +1196,7 @@
           <EntitySetMapping Name="citizen4">
             <EntityTypeMapping TypeName="db_citizen4Model.citizen4">
               <MappingFragment StoreEntitySet="citizen4">
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
                 <ScalarProperty Name="idSector" ColumnName="idSector" />
                 <ScalarProperty Name="idCitizen4" ColumnName="idCitizen4" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
@@ -1357,6 +1382,17 @@
                 <ScalarProperty Name="FileBin" ColumnName="FileBin" />
                 <ScalarProperty Name="IdCandidate" ColumnName="IdCandidate" />
                 <ScalarProperty Name="idFiles" ColumnName="idFiles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="feedbacks">
+            <EntityTypeMapping TypeName="db_citizen4Model.feedback">
+              <MappingFragment StoreEntitySet="feedback">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="idCitizen4" ColumnName="idCitizen4" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idfeedback" ColumnName="idfeedback" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
